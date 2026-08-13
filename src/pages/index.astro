@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LinksHub from "../components/LinksHub.svelte";
+import { site } from "../data/site";
+import { links } from "../data/links";
+import { skills } from "../data/experience";
+---
+
+<Layout>
+  <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <p class="text-sm text-slate-400 mb-2">{site.location}</p>
+    <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-50">
+      {site.name}
+    </h1>
+    <p class="mt-2 text-lg text-slate-300">{site.role}</p>
+    <p class="mt-6 text-slate-300 leading-relaxed max-w-2xl">{site.bio}</p>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      {skills.map((skill) => (
+        <span class="text-xs px-2.5 py-1 rounded-full border border-slate-700 text-slate-300">
+          {skill}
+        </span>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-10 border-t border-slate-800">
+    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-4">
+      Links
+    </h2>
+    <LinksHub links={links} client:load />
+  </section>
+
+  <section id="contact" class="mx-auto max-w-3xl px-6 py-10 border-t border-slate-800">
+    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-4">
+      Contact
+    </h2>
+    <p class="text-slate-300">
+      Interested in working together, or hiring? Reach out directly —
+      <a href={`mailto:${site.email}`} class="text-slate-100 underline underline-offset-4 hover:text-white">
+        {site.email}
+      </a>.
+    </p>
+  </section>
+</Layout>

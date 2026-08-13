@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+import { experience, skills } from "../data/experience";
+---
+
+<Layout title={`Experience — ${site.name}`}>
+  <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <h1 class="text-3xl font-semibold tracking-tight text-slate-50">Experience</h1>
+    <p class="mt-3 text-slate-300 max-w-2xl">
+      Placeholder history below — replace with your real roles, dates, and outcomes.
+    </p>
+
+    <div class="mt-10 flex flex-wrap gap-2">
+      {skills.map((skill) => (
+        <span class="text-xs px-2.5 py-1 rounded-full border border-slate-700 text-slate-300">
+          {skill}
+        </span>
+      ))}
+    </div>
+
+    <ol class="mt-10 space-y-8">
+      {experience.map((role) => (
+        <li class="border-l border-slate-800 pl-6 relative">
+          <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-slate-500"></span>
+          <div class="flex flex-wrap items-baseline gap-x-3">
+            <h2 class="font-medium text-slate-100">{role.title}</h2>
+            <span class="text-sm text-slate-400">{role.org}</span>
+            <span class="text-xs text-slate-500 ml-auto">{role.period}</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-300">{role.summary}</p>
+          <ul class="mt-2 list-disc list-inside text-sm text-slate-400 space-y-1">
+            {role.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Layout>

@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const services = [
+  {
+    title: "Infrastructure Automation",
+    description:
+      "Reproducible system configuration, CI/CD pipelines, and deployment automation that cuts manual toil.",
+  },
+  {
+    title: "Platform & DevOps Consulting",
+    description:
+      "Advisory and hands-on work to make your infrastructure more reliable, observable, and easier to maintain.",
+  },
+  {
+    title: "Migration & Modernization",
+    description:
+      "Moving legacy setups to reproducible, version-controlled infrastructure with minimal downtime.",
+  },
+];
+---
+
+<Layout title={`Services — ${site.name}`}>
+  <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <h1 class="text-3xl font-semibold tracking-tight text-slate-50">Services</h1>
+    <p class="mt-3 text-slate-300 max-w-2xl">
+      Replace this copy with the specific engagements you offer — retainers, fixed-scope
+      projects, audits, etc.
+    </p>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-1">
+      {services.map((service) => (
+        <div class="rounded-lg border border-slate-800 bg-slate-900/40 p-6">
+          <h2 class="font-medium text-slate-100">{service.title}</h2>
+          <p class="mt-2 text-sm text-slate-300 leading-relaxed">{service.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-10 text-slate-300">
+      Ready to talk? <a href={`mailto:${site.email}`} class="underline underline-offset-4 hover:text-white">Get in touch</a>.
+    </p>
+  </section>
+</Layout>
