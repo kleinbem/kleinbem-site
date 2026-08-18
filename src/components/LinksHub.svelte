@@ -1,5 +1,7 @@
 <script lang="ts">
   import type { LinkEntry } from "../data/links";
+  import { flip } from "svelte/animate";
+  import { fade } from "svelte/transition";
 
   let { links }: { links: LinkEntry[] } = $props();
 
@@ -27,7 +29,7 @@
 
   <ul class="grid gap-2 sm:grid-cols-2">
     {#each visible as link (link.label)}
-      <li>
+      <li animate:flip={{ duration: 200 }} in:fade={{ duration: 150 }} out:fade={{ duration: 100 }}>
         <a
           href={link.url}
           class="block rounded-lg border border-slate-800 bg-slate-900/50 px-4 py-3 hover:border-slate-600 hover:bg-slate-900 transition-colors"
