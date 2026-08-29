@@ -22,8 +22,8 @@
         type="button"
         aria-pressed={active === cat}
         class="rounded-full border px-3 py-1 text-xs transition-colors {active === cat
-          ? 'border-accent-400 bg-accent-500/15 text-accent-300'
-          : 'border-ink-700 text-ink-300 hover:border-ink-500 hover:text-ink-100'}"
+          ? 'border-accent bg-accent-soft text-accent'
+          : 'border-line text-muted hover:border-accent/50 hover:text-heading'}"
         onclick={() => (active = cat)}
       >
         {cat}
@@ -40,15 +40,15 @@
       >
         <a
           href={link.url}
-          class="group block rounded-lg border border-ink-800 bg-ink-900/50 px-4 py-3 transition-colors hover:border-ink-600 hover:bg-ink-900"
+          class="group block rounded-lg border border-line bg-surface px-4 py-3 transition-colors hover:border-accent/40"
           target={isExternal(link.url) ? "_blank" : undefined}
           rel={isExternal(link.url) ? "noopener noreferrer" : undefined}
         >
-          <span class="flex items-center gap-1.5 text-sm font-medium text-ink-100">
+          <span class="flex items-center gap-1.5 text-sm font-medium text-heading">
             {link.label}
             {#if isExternal(link.url)}
               <svg
-                class="h-3 w-3 text-ink-500 transition-colors group-hover:text-accent-400"
+                class="h-3 w-3 text-muted transition-colors group-hover:text-accent"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -62,7 +62,7 @@
             {/if}
           </span>
           {#if link.hint}
-            <span class="mt-0.5 block text-xs text-ink-400">{link.hint}</span>
+            <span class="mt-0.5 block text-xs text-muted">{link.hint}</span>
           {/if}
         </a>
       </li>

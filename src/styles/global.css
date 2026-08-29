@@ -5,26 +5,41 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
 
+/* Semantic design tokens. Components reference these names only (bg-bg,
+   text-fg, border-line, …) so the palette can change in one place.
+   Light is the default; the @media block below overrides the CSS variables
+   for an automatic dark fallback — Tailwind's generated utilities read
+   var(--color-*), so overriding at :root is enough. Do NOT nest @theme
+   inside @media: Tailwind v4 flattens all @theme blocks into one :root. */
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Neutral, very slightly cool near-black ground. */
-  --color-ink-950: #0a0c10;
-  --color-ink-900: #0f131a;
-  --color-ink-850: #141922;
-  --color-ink-800: #1c222d;
-  --color-ink-700: #2a323f;
-  --color-ink-600: #3b4657;
-  --color-ink-400: #8b96a7;
-  --color-ink-300: #aab3c2;
-  --color-ink-200: #cdd4de;
-  --color-ink-100: #e8ebef;
+  --color-bg: #ffffff;
+  --color-surface: #f7f8fa;
+  --color-line: #e4e7ec;
+  --color-fg: #414651;
+  --color-muted: #6b7280;
+  --color-heading: #101828;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-fg: #ffffff;
+  --color-accent-soft: #eff4ff;
+}
 
-  /* Single restrained accent. */
-  --color-accent-500: #38bdf8;
-  --color-accent-400: #5cc9fa;
-  --color-accent-300: #8ad8fc;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f1115;
+    --color-surface: #181b21;
+    --color-line: #272b33;
+    --color-fg: #c7ccd4;
+    --color-muted: #8b909b;
+    --color-heading: #f4f6f8;
+    --color-accent: #60a5fa;
+    --color-accent-hover: #7db5fb;
+    --color-accent-fg: #0b1220;
+    --color-accent-soft: #172033;
+  }
 }
 
 @layer base {
@@ -33,7 +48,8 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
-    background-color: var(--color-ink-950);
+    background-color: var(--color-bg);
+    color-scheme: light dark;
   }
 
   body {
@@ -41,12 +57,11 @@
   }
 
   ::selection {
-    background-color: color-mix(in srgb, var(--color-accent-500) 30%, transparent);
-    color: #fff;
+    background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent-400);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -64,9 +79,8 @@
   }
 }
 
-/* Soft radial glow behind the hero — one utility, used once. */
+/* Faint tint behind the hero — barely there in light, a touch more in dark. */
 .hero-glow {
   background-image:
-    radial-gradient(60rem 30rem at 15% -10%, color-mix(in srgb, var(--color-accent-500) 12%, transparent), transparent 70%),
-    radial-gradient(40rem 24rem at 100% 0%, color-mix(in srgb, #7c5cff 10%, transparent), transparent 70%);
+    radial-gradient(50rem 26rem at 12% -20%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 70%);
 }

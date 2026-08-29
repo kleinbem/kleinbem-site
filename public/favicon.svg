@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#0a0c10" />
-  <rect x="1.25" y="1.25" width="29.5" height="29.5" rx="6" fill="none" stroke="#2a323f" stroke-width="1.5" />
+  <rect width="32" height="32" rx="7" fill="#2563eb" />
   <path
-    d="M11 7v18M11 17l7-7M11 16.5l8 8.5"
+    d="M11 6v20M11 17.5l7.5-7.5M11 16.5l8.5 9.5"
     fill="none"
-    stroke="#38bdf8"
+    stroke="#ffffff"
     stroke-width="3"
     stroke-linecap="round"
     stroke-linejoin="round"

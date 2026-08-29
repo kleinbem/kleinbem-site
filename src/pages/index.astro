@@ -7,31 +7,31 @@ import { skills } from "../data/experience";
 ---
 
 <Layout>
-  <section class="hero-glow border-b border-ink-800/60">
+  <section class="hero-glow border-b border-line">
     <div class="mx-auto max-w-3xl px-6 pt-20 pb-16">
-      <p class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent-400">
+      <p class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent">
         {site.location}
       </p>
-      <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
+      <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-heading sm:text-5xl">
         {site.name}
       </h1>
-      <p class="mt-4 max-w-2xl text-xl leading-snug text-ink-200">
+      <p class="mt-4 max-w-2xl text-xl leading-snug text-fg">
         {site.role}
       </p>
-      <p class="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink-300">
+      <p class="mt-6 max-w-2xl text-[15px] leading-relaxed text-muted">
         {site.bio}
       </p>
 
       <div class="mt-8 flex flex-wrap gap-3">
         <a
           href={`mailto:${site.email}`}
-          class="inline-flex items-center rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-ink-950 transition-colors hover:bg-accent-400"
+          class="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
         >
           Get in touch
         </a>
         <a
           href="/services"
-          class="inline-flex items-center rounded-lg border border-ink-700 px-4 py-2 text-sm font-medium text-ink-100 transition-colors hover:border-ink-500 hover:bg-ink-850"
+          class="inline-flex items-center rounded-lg border border-line px-4 py-2 text-sm font-medium text-heading transition-colors hover:bg-surface"
         >
           View services
         </a>
@@ -39,7 +39,7 @@ import { skills } from "../data/experience";
 
       <ul class="mt-10 flex flex-wrap gap-2">
         {skills.map((skill) => (
-          <li class="rounded-full border border-ink-700 px-2.5 py-1 text-xs text-ink-300">
+          <li class="rounded-full border border-line px-2.5 py-1 text-xs text-muted">
             {skill}
           </li>
         ))}
@@ -48,21 +48,21 @@ import { skills } from "../data/experience";
   </section>
 
   <section class="mx-auto max-w-3xl px-6 py-12">
-    <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-ink-400">
+    <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">
       Links
     </h2>
     <LinksHub links={links} client:idle />
   </section>
 
-  <section id="contact" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-12 border-t border-ink-800">
-    <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-ink-400">
+  <section id="contact" class="mx-auto max-w-3xl scroll-mt-20 border-t border-line px-6 py-12">
+    <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">
       Contact
     </h2>
-    <p class="max-w-2xl text-[15px] leading-relaxed text-ink-300">
+    <p class="max-w-2xl text-[15px] leading-relaxed text-muted">
       Interested in working together, or hiring? Reach out directly at
       <a
         href={`mailto:${site.email}`}
-        class="text-ink-100 underline decoration-ink-600 underline-offset-4 transition-colors hover:decoration-accent-400"
+        class="font-medium text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
       >
         {site.email}</a>.
     </p>
