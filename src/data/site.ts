@@ -6,6 +6,6 @@ export const site = {
   bio: `I'm an independent consultant focused on infrastructure automation, developer platforms,
     and reliable systems. I work with teams who want less manual toil and more confidence in
     their deployments — from CI/CD pipelines to reproducible system configuration.`,
-  email: "martin.kleinberger@gmail.com",
+  email: "martin.kleinberger@kleinbem.dev",
   location: "Available for remote & on-site engagements",
 };

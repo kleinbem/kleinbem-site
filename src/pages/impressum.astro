@@ -13,18 +13,12 @@ import { site } from "../data/site";
       that require one.
     </p>
 
-    <p class="mt-4 max-w-2xl rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm leading-relaxed text-amber-700">
-      Placeholder — replace the bracketed fields with your real details, and delete the rows that
-      don't apply (company registration only if incorporated; VAT number only if VAT-registered —
-      the Irish services threshold is €42,500/year). This is not legal advice.
-    </p>
-
     <dl class="mt-10 grid gap-x-8 gap-y-6 text-sm sm:grid-cols-[14rem_1fr]">
       <dt class="font-mono text-xs uppercase tracking-wider text-muted">Service provided by</dt>
-      <dd class="text-fg">{site.name} <span class="text-muted">[sole trader / trading as …]</span></dd>
+      <dd class="text-fg">{site.name} <span class="text-muted">— sole trader</span></dd>
 
       <dt class="font-mono text-xs uppercase tracking-wider text-muted">Business address</dt>
-      <dd class="text-fg">[Street, Town, County, Eircode], Ireland</dd>
+      <dd class="text-fg">[Street / townland], Co. Cork, T56 T634, Ireland</dd>
 
       <dt class="font-mono text-xs uppercase tracking-wider text-muted">Email</dt>
       <dd>
@@ -36,18 +30,14 @@ import { site } from "../data/site";
         </a>
       </dd>
 
-      <dt class="font-mono text-xs uppercase tracking-wider text-muted">Company registration</dt>
-      <dd class="text-fg">
-        [If incorporated: registered company name, CRO number, and registered office.
-        Omit this row if operating as a sole trader.]
-      </dd>
-
-      <dt class="font-mono text-xs uppercase tracking-wider text-muted">VAT number</dt>
-      <dd class="text-fg">[IE VAT number — omit this row if not VAT-registered]</dd>
-
       <dt class="font-mono text-xs uppercase tracking-wider text-muted">Governing law</dt>
       <dd class="text-fg">Ireland</dd>
     </dl>
+
+    <p class="mt-8 max-w-2xl text-xs leading-relaxed text-muted">
+      Business-name / company registration is in progress; a CRO number and, if applicable, a VAT
+      number will be added here once registration completes. Not legal advice.
+    </p>
 
     <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Data protection</h2>
     <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
