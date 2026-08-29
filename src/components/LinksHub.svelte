@@ -17,6 +17,8 @@
   <div class="flex gap-2 mb-4 flex-wrap">
     {#each categories as cat}
       <button
+        type="button"
+        aria-pressed={active === cat}
         class="px-3 py-1 rounded-full text-xs border transition-colors {active === cat
           ? 'bg-slate-100 text-slate-900 border-slate-100'
           : 'border-slate-700 text-slate-300 hover:border-slate-500'}"
