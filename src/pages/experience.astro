@@ -6,31 +6,39 @@ import { experience, skills } from "../data/experience";
 
 <Layout title={`Experience — ${site.name}`}>
   <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
-    <h1 class="text-3xl font-semibold tracking-tight text-slate-50">Experience</h1>
-    <p class="mt-3 text-slate-300 max-w-2xl">
-      Placeholder history below — replace with your real roles, dates, and outcomes.
+    <h1 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Experience</h1>
+    <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-300">
+      A decade of building and running infrastructure — the highlights below, with a focus on
+      measurable outcomes.
     </p>
 
-    <div class="mt-10 flex flex-wrap gap-2">
+    <ul class="mt-8 flex flex-wrap gap-2">
       {skills.map((skill) => (
-        <span class="text-xs px-2.5 py-1 rounded-full border border-slate-700 text-slate-300">
+        <li class="rounded-full border border-ink-700 px-2.5 py-1 text-xs text-ink-300">
           {skill}
-        </span>
+        </li>
       ))}
-    </div>
+    </ul>
 
-    <ol class="mt-10 space-y-8">
+    <ol class="mt-12 space-y-10">
       {experience.map((role) => (
-        <li class="border-l border-slate-800 pl-6 relative">
-          <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-slate-500"></span>
+        <li class="relative border-l border-ink-800 pl-6">
+          <span
+            class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-accent-500"
+            aria-hidden="true"
+          ></span>
           <div class="flex flex-wrap items-baseline gap-x-3">
-            <h2 class="font-medium text-slate-100">{role.title}</h2>
-            <span class="text-sm text-slate-400">{role.org}</span>
-            <span class="text-xs text-slate-500 ml-auto">{role.period}</span>
+            <h2 class="font-medium text-ink-100">{role.title}</h2>
+            <span class="text-sm text-ink-400">{role.org}</span>
+            <span class="ml-auto font-mono text-xs text-ink-400">{role.period}</span>
           </div>
-          <p class="mt-2 text-sm text-slate-300">{role.summary}</p>
-          <ul class="mt-2 list-disc list-inside text-sm text-slate-400 space-y-1">
-            {role.highlights.map((h) => <li>{h}</li>)}
+          <p class="mt-2 text-sm leading-relaxed text-ink-300">{role.summary}</p>
+          <ul class="mt-3 space-y-1.5 text-sm text-ink-400">
+            {role.highlights.map((h) => (
+              <li class="relative pl-4 before:absolute before:left-0 before:text-ink-600 before:content-['—']">
+                {h}
+              </li>
+            ))}
           </ul>
         </li>
       ))}

@@ -11,17 +11,19 @@
   const visible = $derived(
     active === "All" ? links : links.filter((l) => l.category === active)
   );
+
+  const isExternal = (url: string) => url.startsWith("http");
 </script>
 
 <div>
-  <div class="flex gap-2 mb-4 flex-wrap">
+  <div class="mb-4 flex flex-wrap gap-2">
     {#each categories as cat}
       <button
         type="button"
         aria-pressed={active === cat}
-        class="px-3 py-1 rounded-full text-xs border transition-colors {active === cat
-          ? 'bg-slate-100 text-slate-900 border-slate-100'
-          : 'border-slate-700 text-slate-300 hover:border-slate-500'}"
+        class="rounded-full border px-3 py-1 text-xs transition-colors {active === cat
+          ? 'border-accent-400 bg-accent-500/15 text-accent-300'
+          : 'border-ink-700 text-ink-300 hover:border-ink-500 hover:text-ink-100'}"
         onclick={() => (active = cat)}
       >
         {cat}
@@ -31,16 +33,36 @@
 
   <ul class="grid gap-2 sm:grid-cols-2">
     {#each visible as link (link.label)}
-      <li animate:flip={{ duration: 200 }} in:fade={{ duration: 150 }} out:fade={{ duration: 100 }}>
+      <li
+        animate:flip={{ duration: 200 }}
+        in:fade={{ duration: 150 }}
+        out:fade={{ duration: 100 }}
+      >
         <a
           href={link.url}
-          class="block rounded-lg border border-slate-800 bg-slate-900/50 px-4 py-3 hover:border-slate-600 hover:bg-slate-900 transition-colors"
-          target={link.url.startsWith("http") ? "_blank" : undefined}
-          rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
+          class="group block rounded-lg border border-ink-800 bg-ink-900/50 px-4 py-3 transition-colors hover:border-ink-600 hover:bg-ink-900"
+          target={isExternal(link.url) ? "_blank" : undefined}
+          rel={isExternal(link.url) ? "noopener noreferrer" : undefined}
         >
-          <span class="block text-sm font-medium text-slate-100">{link.label}</span>
+          <span class="flex items-center gap-1.5 text-sm font-medium text-ink-100">
+            {link.label}
+            {#if isExternal(link.url)}
+              <svg
+                class="h-3 w-3 text-ink-500 transition-colors group-hover:text-accent-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 17 17 7M8 7h9v9" />
+              </svg>
+            {/if}
+          </span>
           {#if link.hint}
-            <span class="block text-xs text-slate-400 mt-0.5">{link.hint}</span>
+            <span class="mt-0.5 block text-xs text-ink-400">{link.hint}</span>
           {/if}
         </a>
       </li>

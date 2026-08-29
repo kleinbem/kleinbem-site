@@ -7,39 +7,64 @@ import { skills } from "../data/experience";
 ---
 
 <Layout>
-  <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
-    <p class="text-sm text-slate-400 mb-2">{site.location}</p>
-    <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-50">
-      {site.name}
-    </h1>
-    <p class="mt-2 text-lg text-slate-300">{site.role}</p>
-    <p class="mt-6 text-slate-300 leading-relaxed max-w-2xl">{site.bio}</p>
+  <section class="hero-glow border-b border-ink-800/60">
+    <div class="mx-auto max-w-3xl px-6 pt-20 pb-16">
+      <p class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent-400">
+        {site.location}
+      </p>
+      <h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-5xl">
+        {site.name}
+      </h1>
+      <p class="mt-4 max-w-2xl text-xl leading-snug text-ink-200">
+        {site.role}
+      </p>
+      <p class="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink-300">
+        {site.bio}
+      </p>
 
-    <div class="mt-6 flex flex-wrap gap-2">
-      {skills.map((skill) => (
-        <span class="text-xs px-2.5 py-1 rounded-full border border-slate-700 text-slate-300">
-          {skill}
-        </span>
-      ))}
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={`mailto:${site.email}`}
+          class="inline-flex items-center rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-ink-950 transition-colors hover:bg-accent-400"
+        >
+          Get in touch
+        </a>
+        <a
+          href="/services"
+          class="inline-flex items-center rounded-lg border border-ink-700 px-4 py-2 text-sm font-medium text-ink-100 transition-colors hover:border-ink-500 hover:bg-ink-850"
+        >
+          View services
+        </a>
+      </div>
+
+      <ul class="mt-10 flex flex-wrap gap-2">
+        {skills.map((skill) => (
+          <li class="rounded-full border border-ink-700 px-2.5 py-1 text-xs text-ink-300">
+            {skill}
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-6 py-10 border-t border-slate-800">
-    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-4">
+  <section class="mx-auto max-w-3xl px-6 py-12">
+    <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-ink-400">
       Links
     </h2>
     <LinksHub links={links} client:idle />
   </section>
 
-  <section id="contact" class="mx-auto max-w-3xl px-6 py-10 border-t border-slate-800">
-    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400 mb-4">
+  <section id="contact" class="mx-auto max-w-3xl scroll-mt-20 px-6 py-12 border-t border-ink-800">
+    <h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-ink-400">
       Contact
     </h2>
-    <p class="text-slate-300">
-      Interested in working together, or hiring? Reach out directly —
-      <a href={`mailto:${site.email}`} class="text-slate-100 underline underline-offset-4 hover:text-white">
-        {site.email}
-      </a>.
+    <p class="max-w-2xl text-[15px] leading-relaxed text-ink-300">
+      Interested in working together, or hiring? Reach out directly at
+      <a
+        href={`mailto:${site.email}`}
+        class="text-ink-100 underline decoration-ink-600 underline-offset-4 transition-colors hover:decoration-accent-400"
+      >
+        {site.email}</a>.
     </p>
   </section>
 </Layout>
