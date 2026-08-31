@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import LinksHub from "../components/LinksHub.svelte";
+import ContactForm from "../components/ContactForm.svelte";
 import { site } from "../data/site";
 import { links } from "../data/links";
 import { skills } from "../data/experience";
@@ -59,12 +60,15 @@ import { skills } from "../data/experience";
       Contact
     </h2>
     <p class="max-w-2xl text-[15px] leading-relaxed text-muted">
-      Interested in working together, or hiring? Reach out directly at
+      Interested in working together, or hiring? Send a message below, or reach out directly at
       <a
         href={`mailto:${site.email}`}
         class="font-medium text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
       >
         {site.email}</a>.
     </p>
+    <div class="mt-6 max-w-md">
+      <ContactForm email={site.email} client:visible />
+    </div>
   </section>
 </Layout>

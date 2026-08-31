@@ -18,6 +18,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const nav = [
   { href: "/", label: "About" },
   { href: "/services", label: "Services" },
+  { href: "/courses", label: "Courses" },
   { href: "/experience", label: "Experience" },
   { href: "/#contact", label: "Contact" },
 ];
@@ -99,6 +100,7 @@ const isActive = (href: string) =>
         <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
         <nav class="flex gap-4">
           <a href="/services" class="hover:text-heading">Services</a>
+          <a href="/courses" class="hover:text-heading">Courses</a>
           <a href="/experience" class="hover:text-heading">Experience</a>
           <a href="/impressum" class="hover:text-heading">Impressum</a>
           <a href={`mailto:${site.email}`} class="hover:text-heading">Email</a>
