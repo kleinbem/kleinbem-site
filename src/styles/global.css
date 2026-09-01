@@ -67,3 +67,51 @@
   background-image:
     radial-gradient(50rem 26rem at 12% -20%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 70%);
 }
+
+/* Minimal styling for rendered blog-post markdown (Tailwind preflight strips
+   default element spacing, so untouched <Content /> output has none). Kept
+   hand-rolled rather than pulling in @tailwindcss/typography for one page type. */
+.prose :where(p, ul, ol, blockquote, pre) {
+  margin-top: 1.25em;
+}
+.prose :where(h2, h3, h4) {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.prose :where(ul, ol) {
+  padding-left: 1.5em;
+}
+.prose :where(ul) {
+  list-style: disc;
+}
+.prose :where(ol) {
+  list-style: decimal;
+}
+.prose a {
+  color: var(--color-heading);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 4px;
+}
+.prose a:hover {
+  text-decoration-color: var(--color-accent);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--color-surface);
+  border-radius: 0.25em;
+  padding: 0.15em 0.35em;
+}
+.prose pre {
+  background-color: var(--color-surface);
+  border-radius: 0.5em;
+  padding: 1em;
+  overflow-x: auto;
+}
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+}

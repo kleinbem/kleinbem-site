@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const dateFmt = new Intl.DateTimeFormat("en-IE", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<Layout title={`Blog — ${site.name}`}>
+  <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Blog</h1>
+    <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
+      Notes on infrastructure, platform engineering, and building things that stay up.
+    </p>
+
+    <ol class="mt-10 space-y-6">
+      {posts.map((post) => (
+        <li>
+          <a
+            href={`/blog/${post.id}/`}
+            class="group block rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent/40"
+          >
+            <p class="font-mono text-xs text-muted">{dateFmt.format(post.data.pubDate)}</p>
+            <h2 class="mt-1 font-medium text-heading group-hover:text-accent">
+              {post.data.title}
+            </h2>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{post.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    {posts.length === 0 && (
+      <p class="mt-10 text-sm text-muted">No posts yet — check back soon.</p>
+    )}
+  </section>
+</Layout>

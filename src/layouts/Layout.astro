@@ -19,6 +19,7 @@ const nav = [
   { href: "/", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/courses", label: "Courses" },
+  { href: "/blog", label: "Blog" },
   { href: "/experience", label: "Experience" },
   { href: "/#contact", label: "Contact" },
 ];
@@ -101,6 +102,7 @@ const isActive = (href: string) =>
         <nav class="flex gap-4">
           <a href="/services" class="hover:text-heading">Services</a>
           <a href="/courses" class="hover:text-heading">Courses</a>
+          <a href="/blog" class="hover:text-heading">Blog</a>
           <a href="/experience" class="hover:text-heading">Experience</a>
           <a href="/impressum" class="hover:text-heading">Impressum</a>
           <a href={`mailto:${site.email}`} class="hover:text-heading">Email</a>

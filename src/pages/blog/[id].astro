@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../data/site";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat("en-IE", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<Layout title={`${post.data.title} — ${site.name}`} description={post.data.description}>
+  <article class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <a href="/blog" class="text-sm text-muted transition-colors hover:text-heading">&larr; Blog</a>
+    <p class="mt-6 font-mono text-xs text-muted">{dateFmt.format(post.data.pubDate)}</p>
+    <h1 class="mt-1 text-3xl font-semibold tracking-tight text-heading sm:text-4xl">
+      {post.data.title}
+    </h1>
+    <div class="prose mt-8 text-[15px] leading-relaxed text-fg">
+      <Content />
+    </div>
+  </article>
+</Layout>
