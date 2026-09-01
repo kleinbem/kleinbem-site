@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { site } from "../data/site";
+import AuthNav from "../components/AuthNav.svelte";
 
 interface Props {
   title?: string;
@@ -73,7 +74,7 @@ const isActive = (href: string) =>
           </span>
           <span class="hidden sm:inline">{site.name}</span>
         </a>
-        <nav class="flex gap-1 text-sm">
+        <nav class="flex items-center gap-1 text-sm">
           {nav.map((item) => (
             <a
               href={item.href}
@@ -88,6 +89,8 @@ const isActive = (href: string) =>
               {item.label}
             </a>
           ))}
+          <span class="mx-1 h-4 w-px bg-line" aria-hidden="true"></span>
+          <AuthNav client:idle />
         </nav>
       </div>
     </header>
