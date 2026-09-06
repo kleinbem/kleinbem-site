@@ -1,0 +1,121 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+
+const updated = "6 September 2026";
+---
+
+<Layout
+  title={`Privacy Policy — ${site.name}`}
+  description="How kleinbem.dev handles personal data, including optional sign-in with Google or Facebook."
+>
+  <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Privacy Policy</h1>
+    <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
+      This site is a static personal / consulting website operated by {site.name} (Co. Cork,
+      Ireland). It runs no advertising and no third-party analytics or tracking. The only
+      processing of personal data is the optional <strong class="text-fg">sign-in</strong>
+      feature described below, plus standard web-server and CDN access logs.
+    </p>
+    <p class="mt-2 text-xs text-muted">Last updated: {updated}</p>
+
+    <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">
+      Signing in with Google or Facebook
+    </h2>
+    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+      Sign-in is entirely optional — the site is fully usable without an account. If you choose
+      to sign in, authentication is handled by a self-hosted service at
+      <code class="rounded bg-surface px-1 py-0.5 text-[13px]">login.kleinbem.dev</code> that
+      I operate on my own infrastructure. No account or password is created on this site; you
+      authenticate directly with Google or Facebook.
+    </p>
+
+    <h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">
+      What is stored
+    </h3>
+    <ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
+      <li>
+        From your Google or Facebook profile: your <strong class="font-medium">name</strong>,
+        <strong class="font-medium">email address</strong>, <strong class="font-medium"
+          >profile picture URL</strong
+        >, and the provider's <strong class="font-medium">account identifier</strong>.
+      </li>
+      <li>
+        The OAuth tokens the provider issues so the session can be established. Offline /
+        long-term access is not requested.
+      </li>
+      <li>
+        Session records: a session identifier, its creation and expiry time, your IP address,
+        and your browser's user-agent string.
+      </li>
+    </ul>
+
+    <h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">
+      Purpose and legal basis
+    </h3>
+    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+      This data is used solely to authenticate you and keep you signed in across
+      <code class="rounded bg-surface px-1 py-0.5 text-[13px]">kleinbem.dev</code> and its
+      subdomains. The legal basis is your consent, given when you choose to sign in
+      (GDPR Art. 6(1)(a)), and the performance of providing the account feature you requested.
+    </p>
+
+    <h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">Cookies</h3>
+    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+      A single session cookie is set on the <code
+        class="rounded bg-surface px-1 py-0.5 text-[13px]">.kleinbem.dev</code
+      > domain <em>only after you sign in</em>, so the session works across subdomains. It is
+      removed when you sign out. There are no advertising or tracking cookies, and no cookies
+      at all until you sign in.
+    </p>
+
+    <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Third parties</h2>
+    <dl class="mt-4 grid gap-x-8 gap-y-5 text-sm sm:grid-cols-[10rem_1fr]">
+      <dt class="font-mono text-xs uppercase tracking-wider text-muted">Google / Meta</dt>
+      <dd class="text-fg">
+        Used only as identity providers when you choose that sign-in method. Their handling of
+        your data on their side is governed by their own privacy policies. This site requests
+        only your basic profile (name, email, picture).
+      </dd>
+
+      <dt class="font-mono text-xs uppercase tracking-wider text-muted">Cloudflare</dt>
+      <dd class="text-fg">
+        CDN and reverse proxy. Access logs record technical data including IP addresses,
+        processed on a legitimate-interests basis to deliver and secure the site, and retained
+        only briefly.
+      </dd>
+    </dl>
+    <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-fg">
+      Your sign-in data is <strong class="font-medium">not</strong> sold, rented, or shared
+      with advertisers, and is not used for profiling or automated decision-making.
+    </p>
+
+    <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">
+      Retention and your rights
+    </h2>
+    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+      Account data is kept until you ask for it to be deleted; expired sessions are removed
+      automatically. To delete your account and associated data, or to exercise your rights of
+      access, rectification, erasure, portability, or objection under the GDPR, email
+      <a
+        href={`mailto:${site.email}`}
+        class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+        >{site.email}</a
+      >. You may also lodge a complaint with the Irish Data Protection Commission
+      (<a
+        href="https://www.dataprotection.ie"
+        rel="noopener"
+        class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+        >dataprotection.ie</a
+      >).
+    </p>
+
+    <p class="mt-10 max-w-2xl text-xs leading-relaxed text-muted">
+      This policy may be updated; material changes will be reflected in the &ldquo;last
+      updated&rdquo; date above. See also the <a
+        href="/impressum"
+        class="underline decoration-line underline-offset-4 hover:decoration-accent">Legal Notice</a
+      >. Not legal advice.
+    </p>
+  </section>
+</Layout>
