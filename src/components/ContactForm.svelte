@@ -4,18 +4,24 @@
   let { email }: { email: string } = $props();
 
   let sent = $state(false);
+  let failed = $state(false);
 
   const form = createForm(() => ({
-    defaultValues: { name: "", email: "", message: "" },
+    defaultValues: { name: "", email: "", message: "", company: "" },
     onSubmit: async ({ value }) => {
-      // Static site, no backend yet — hand off to the visitor's mail client
-      // with the message prefilled. Swap for a real endpoint once one exists.
-      const subject = `Website contact from ${value.name}`;
-      const body = `${value.message}\n\n— ${value.name} (${value.email})`;
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(
-        subject
-      )}&body=${encodeURIComponent(body)}`;
-      sent = true;
+      failed = false;
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(value),
+        });
+        if (!res.ok) throw new Error(`contact endpoint returned ${res.status}`);
+        sent = true;
+      } catch (err) {
+        console.error("contact form submission failed", err);
+        failed = true;
+      }
     },
   }));
 
@@ -31,6 +37,21 @@
     form.handleSubmit();
   }}
 >
+  <form.Field name="company">
+    {#snippet children(field)}
+      <input
+        type="text"
+        name={field.name}
+        value={field.state.value}
+        oninput={(e) => field.handleChange(e.currentTarget.value)}
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+        class="absolute h-0 w-0 opacity-0"
+      />
+    {/snippet}
+  </form.Field>
+
   <form.Field
     name="name"
     validators={{
@@ -113,15 +134,16 @@
         disabled={!canSubmit}
         class="inline-flex w-fit items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover disabled:opacity-50"
       >
-        {submitting ? "Opening your mail app…" : "Send"}
+        {submitting ? "Sending…" : "Send"}
       </button>
     {/snippet}
   </form.Subscribe>
 
   {#if sent}
-    <p class="text-xs text-muted">
-      Your mail app should have opened with the message ready to send. If it didn't, email
-      directly at {email}.
+    <p class="text-xs text-muted">Thanks — your message is on its way.</p>
+  {:else if failed}
+    <p class="text-xs text-red-500">
+      Something went wrong sending that. Feel free to email me directly at {email} instead.
     </p>
   {/if}
 </form>
