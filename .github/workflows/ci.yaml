@@ -20,3 +20,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+
+      # Only on main, not PRs — this pushes straight to the live
+      # www.kleinbem.dev Pages project (see nix/infra/cloudflare-pages.tf).
+      - if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=kleinbem-site --branch=main
