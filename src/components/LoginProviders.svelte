@@ -5,7 +5,10 @@
   let failed = $state(false);
 
   const providers: { id: SocialProvider; label: string }[] = [
+    { id: "linkedin", label: "Continue with LinkedIn" },
+    { id: "github", label: "Continue with GitHub" },
     { id: "google", label: "Continue with Google" },
+    { id: "microsoft", label: "Continue with Microsoft" },
     { id: "facebook", label: "Continue with Facebook" },
   ];
 

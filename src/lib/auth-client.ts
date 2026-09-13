@@ -5,4 +5,4 @@ const baseURL = import.meta.env.PUBLIC_AUTH_URL ?? "https://login.kleinbem.dev";
 
 export const authClient = createAuthClient({ baseURL });
 
-export type SocialProvider = "google" | "facebook";
+export type SocialProvider = "google" | "facebook" | "github" | "linkedin" | "microsoft";
