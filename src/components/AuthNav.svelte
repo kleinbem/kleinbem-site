@@ -1,23 +1,10 @@
 <script lang="ts">
-  import { authClient, type SocialProvider } from "../lib/auth-client";
+  import { authClient } from "../lib/auth-client";
 
   const session = authClient.useSession();
 
   let open = $state(false);
   let busy = $state(false);
-
-  async function login(provider: SocialProvider) {
-    busy = true;
-    try {
-      // Must be absolute — better-auth resolves a relative callbackURL
-      // against its own baseURL (login.kleinbem.dev), not this site, which
-      // sent users to a login.kleinbem.dev 404 after a successful sign-in.
-      await authClient.signIn.social({ provider, callbackURL: location.href });
-    } catch (err) {
-      busy = false;
-      console.error("sign-in failed", err);
-    }
-  }
 
   async function logout() {
     busy = true;
@@ -55,23 +42,11 @@
       </div>
     {/if}
   {:else}
-    <button
-      type="button"
+    <a
+      href="/login"
       class="rounded-md px-2.5 py-1.5 text-sm text-muted transition-colors hover:text-heading"
-      aria-expanded={open}
-      onclick={() => (open = !open)}
     >
       Sign in
-    </button>
-    {#if open}
-      <div class={menuClass}>
-        <button class={itemClass} disabled={busy} onclick={() => login("google")}>
-          Continue with Google
-        </button>
-        <button class={itemClass} disabled={busy} onclick={() => login("facebook")}>
-          Continue with Facebook
-        </button>
-      </div>
-    {/if}
+    </a>
   {/if}
 </div>
