@@ -4,16 +4,12 @@
   let busy = $state(false);
   let failed = $state(false);
 
-  // Only Google has real credentials right now — LinkedIn/GitHub/Microsoft/
-  // Facebook are wired up backend-side (auth.ts) but stay off the live page
-  // until their OAuth apps actually exist. Re-adding one later is just
-  // uncommenting a line here, nothing else to build.
   const providers: { id: SocialProvider; label: string }[] = [
+    { id: "linkedin", label: "Continue with LinkedIn" },
+    { id: "github", label: "Continue with GitHub" },
     { id: "google", label: "Continue with Google" },
-    // { id: "linkedin", label: "Continue with LinkedIn" },
-    // { id: "github", label: "Continue with GitHub" },
-    // { id: "microsoft", label: "Continue with Microsoft" },
-    // { id: "facebook", label: "Continue with Facebook" },
+    { id: "microsoft", label: "Continue with Microsoft" },
+    { id: "facebook", label: "Continue with Facebook" },
   ];
 
   async function login(provider: SocialProvider) {
