@@ -8,14 +8,27 @@
 
   async function login(provider: SocialProvider) {
     busy = true;
-    await authClient.signIn.social({ provider, callbackURL: location.pathname });
+    try {
+      // Must be absolute — better-auth resolves a relative callbackURL
+      // against its own baseURL (login.kleinbem.dev), not this site, which
+      // sent users to a login.kleinbem.dev 404 after a successful sign-in.
+      await authClient.signIn.social({ provider, callbackURL: location.href });
+    } catch (err) {
+      busy = false;
+      console.error("sign-in failed", err);
+    }
   }
 
   async function logout() {
     busy = true;
-    await authClient.signOut();
-    busy = false;
-    open = false;
+    try {
+      await authClient.signOut();
+    } catch (err) {
+      console.error("sign-out failed", err);
+    } finally {
+      busy = false;
+      open = false;
+    }
   }
 
   const menuClass =
