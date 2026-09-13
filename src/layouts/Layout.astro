@@ -51,6 +51,24 @@ const isActive = (href: string) =>
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!--
+      Cloudflare Web Analytics (privacy-preserving, cookieless — see
+      nix/infra/cloudflare-analytics.tf for the Terraform-managed site
+      record). auto_install=true is supposed to inject this at the edge
+      with zero code changes, but Cloudflare Pages doesn't reliably honor
+      that zone-level mechanism — verified live: the beacon never appeared
+      in production responses. Adding it directly here is the documented
+      workaround and the more robust choice regardless (works the same no
+      matter what Cloudflare's platform-specific auto-inject does). The
+      token below just names the site; it's not a secret, and it's
+      designed to ship in page source.
+    -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token: "5d8eac4b56b745be97210a1ec11a7ebd" })}
+    ></script>
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-fg antialiased">
     <a
