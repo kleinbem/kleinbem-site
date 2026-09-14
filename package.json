@@ -19,13 +19,13 @@
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/svelte-form": "^1.33.5",
     "astro": "^7.3.2",
-    "better-auth": "^1.7.3",
+    "better-auth": "^1.7.4",
     "svelte": "^5.56.9",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@cloudflare/workers-types": "^5.20260911.1"
+    "@cloudflare/workers-types": "^5.20260914.1"
   }
 }
