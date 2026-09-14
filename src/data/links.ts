@@ -12,6 +12,6 @@ export const links: LinkEntry[] = [
   { label: "Email", url: "mailto:martin.kleinberger@kleinbem.dev", category: "Professional", hint: "Direct contact" },
   { label: "Resume / CV", url: "/experience", category: "Professional", hint: "Full experience on this site" },
   { label: "Substack", url: "https://kleinbem.substack.com", category: "Writing", hint: "Newsletter — notes & long-form writing" },
-  { label: "X / Twitter", url: "https://x.com/your-handle", category: "Social" },
+  { label: "X / Twitter", url: "https://x.com/kleinbem", category: "Social" },
   { label: "Mastodon", url: "https://mastodon.social/@your-handle", category: "Social" },
 ];
