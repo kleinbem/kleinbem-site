@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+---
+
+<Layout title={`Page not found — ${site.name}`} description="This page doesn't exist." noindex>
+  <section class="mx-auto max-w-3xl px-6 pt-24 pb-16 text-center">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">404</p>
+    <h1 class="mt-4 text-3xl font-semibold tracking-tight text-heading sm:text-4xl">
+      Page not found
+    </h1>
+    <p class="mt-4 text-[15px] leading-relaxed text-muted">
+      The page you're looking for doesn't exist or has moved.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+    >
+      Back to homepage
+    </a>
+  </section>
+</Layout>

@@ -61,7 +61,7 @@ function callTool(name: string): unknown {
         bio: site.bio.replace(/\s+/g, " ").trim(),
         email: site.email,
         location: site.location,
-        url: "https://kleinbem.dev",
+        url: "https://www.kleinbem.dev",
       };
     case "get_services":
       return { services };

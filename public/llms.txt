@@ -6,22 +6,22 @@
 
 ## Pages
 
-- [Home](https://kleinbem.dev/): profile, skills, and a contact form
-- [Services](https://kleinbem.dev/services): consulting service offerings
-- [Experience](https://kleinbem.dev/experience): work history and skills
-- [Blog](https://kleinbem.dev/blog): notes and long-form writing
-- [Courses](https://kleinbem.dev/courses): course listing
-- [Privacy Policy](https://kleinbem.dev/privacy)
+- [Home](https://www.kleinbem.dev/): profile, skills, and a contact form
+- [Services](https://www.kleinbem.dev/services): consulting service offerings
+- [Experience](https://www.kleinbem.dev/experience): work history and skills
+- [Blog](https://www.kleinbem.dev/blog): notes and long-form writing
+- [Courses](https://www.kleinbem.dev/courses): course listing
+- [Privacy Policy](https://www.kleinbem.dev/privacy)
 
 ## Machine-readable data
 
 Structured JSON for agents and automated tools — same data as the pages above,
 no HTML to parse. All are public, read-only, unauthenticated GET endpoints.
 
-- [Profile](https://kleinbem.dev/api/profile): name, role, tagline, bio, email, location, links
-- [Services](https://kleinbem.dev/api/services): consulting service offerings
-- [Experience](https://kleinbem.dev/api/experience): work history and skill list
-- [MCP server](https://kleinbem.dev/api/mcp): Model Context Protocol endpoint
+- [Profile](https://www.kleinbem.dev/api/profile): name, role, tagline, bio, email, location, links
+- [Services](https://www.kleinbem.dev/api/services): consulting service offerings
+- [Experience](https://www.kleinbem.dev/api/experience): work history and skill list
+- [MCP server](https://www.kleinbem.dev/api/mcp): Model Context Protocol endpoint
   (JSON-RPC 2.0 over HTTP POST) exposing `get_profile`, `get_services`,
   `get_experience`, and `get_links` tools
 

@@ -16,7 +16,7 @@ export const onRequestGet: PagesFunction = async () => {
       bio: site.bio.replace(/\s+/g, " ").trim(),
       email: site.email,
       location: site.location,
-      url: "https://kleinbem.dev",
+      url: "https://www.kleinbem.dev",
       links: links.filter((l) => !l.url.includes("your-handle")),
     },
     { headers: CORS_HEADERS },
