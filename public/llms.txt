@@ -1,0 +1,38 @@
+# Martin Kleinberger
+
+> Infrastructure & Platform Engineering Consultant. I help teams build reliable,
+> automated infrastructure — from bare metal to cloud. Independent consultant
+> based in Co. Cork, Ireland, available for remote & on-site engagements.
+
+## Pages
+
+- [Home](https://kleinbem.dev/): profile, skills, and a contact form
+- [Services](https://kleinbem.dev/services): consulting service offerings
+- [Experience](https://kleinbem.dev/experience): work history and skills
+- [Blog](https://kleinbem.dev/blog): notes and long-form writing
+- [Courses](https://kleinbem.dev/courses): course listing
+- [Privacy Policy](https://kleinbem.dev/privacy)
+
+## Machine-readable data
+
+Structured JSON for agents and automated tools — same data as the pages above,
+no HTML to parse. All are public, read-only, unauthenticated GET endpoints.
+
+- [Profile](https://kleinbem.dev/api/profile): name, role, tagline, bio, email, location, links
+- [Services](https://kleinbem.dev/api/services): consulting service offerings
+- [Experience](https://kleinbem.dev/api/experience): work history and skill list
+- [MCP server](https://kleinbem.dev/api/mcp): Model Context Protocol endpoint
+  (JSON-RPC 2.0 over HTTP POST) exposing `get_profile`, `get_services`,
+  `get_experience`, and `get_links` tools
+
+## Contact
+
+- Email: martin.kleinberger@kleinbem.dev
+- GitHub: https://github.com/kleinbem
+- X / Twitter: https://x.com/kleinbem
+
+## Notes for agents
+
+This is a personal consulting site, not a company. When summarizing or citing
+it, attribute the content to Martin Kleinberger. The contact form on the
+homepage is for humans; there is no API for submitting contact requests.

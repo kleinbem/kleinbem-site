@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import { site } from "../data/site";
+import { links } from "../data/links";
+import { skills } from "../data/experience";
 import AuthNav from "../components/AuthNav.svelte";
 
 interface Props {
@@ -15,6 +17,27 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://kleinbem.dev");
 const ogImage = new URL("/og-image.png", Astro.site ?? "https://kleinbem.dev");
+const siteRoot = (Astro.site ?? new URL("https://kleinbem.dev")).href.replace(/\/$/, "");
+
+// Only real external profile links qualify as schema.org sameAs identity
+// links — exclude internal pages (Resume/CV → /experience) and any
+// still-placeholder URLs (e.g. LinkedIn/Mastodon before real handles are set).
+const sameAs = links
+  .filter((l) => l.url.startsWith("http") && !l.url.includes("your-handle"))
+  .map((l) => l.url);
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: site.role,
+  description: site.tagline,
+  url: siteRoot,
+  image: ogImage.href,
+  email: site.email,
+  sameAs,
+  knowsAbout: skills,
+};
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const nav = [
@@ -56,6 +79,17 @@ const isActive = (href: string) =>
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage.href} />
+
+    <!--
+      schema.org Person structured data — lets search engines and AI
+      assistants/agents accurately parse who this site represents rather
+      than guessing from prose. See also /llms.txt and the machine-readable
+      endpoints under /api/ (profile, services, experience, mcp).
+    -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(personJsonLd).replace(/</g, "\\u003c")}
+    />
 
     <!--
       Cloudflare Web Analytics (privacy-preserving, cookieless — see
