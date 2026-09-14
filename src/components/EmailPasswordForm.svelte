@@ -3,6 +3,7 @@
 
   let email = $state("");
   let password = $state("");
+  let rememberMe = $state(true);
   let busy = $state(false);
   let error = $state("");
 
@@ -13,7 +14,7 @@
     try {
       const redirectPath = new URLSearchParams(location.search).get("redirect") || "/";
       const callbackURL = new URL(redirectPath, location.origin).toString();
-      const res = await authClient.signIn.email({ email, password, callbackURL });
+      const res = await authClient.signIn.email({ email, password, rememberMe, callbackURL });
       if (res.error) {
         error = res.error.message ?? "Sign in failed";
         busy = false;
@@ -40,6 +41,11 @@
     <label for="password" class="mb-1 block text-xs font-medium text-muted">Password</label>
     <input id="password" type="password" required class={inputClass} bind:value={password} />
   </div>
+
+  <label class="flex items-center gap-2 text-xs text-muted">
+    <input type="checkbox" bind:checked={rememberMe} class="h-3.5 w-3.5 rounded border-line accent-accent" />
+    Stay signed in for 30 days
+  </label>
 
   {#if error}
     <p class="text-xs text-red-500">{error}</p>

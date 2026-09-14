@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { site } from "../data/site";
 
-const updated = "13 September 2026";
+const updated = "14 September 2026";
 ---
 
 <Layout
@@ -61,7 +61,7 @@ const updated = "13 September 2026";
       </li>
       <li>
         Session records, either way: a session identifier, its creation and expiry time, your IP
-        address, and your browser's user-agent string.
+        address, and your browser's user-agent string. Sessions are valid for up to 30 days.
       </li>
     </ul>
 
@@ -82,6 +82,20 @@ const updated = "13 September 2026";
       > domain <em>only after you sign in</em>, so the session works across subdomains. It is
       removed when you sign out. There are no advertising or tracking cookies, and no cookies
       at all until you sign in.
+    </p>
+    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+      If you sign in with email and password, a &ldquo;Stay signed in for 30 days&rdquo;
+      checkbox controls how long the cookie itself is kept: checked, it persists in your
+      browser for up to 30 days so you're not asked to sign in again on your next visit;
+      unchecked, it's a session cookie that's discarded the moment you close your browser.
+      Signing in with a social provider always sets a persistent cookie, valid for up to 30
+      days.
+    </p>
+    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+      This cookie doesn't need a consent banner: it's strictly necessary for a feature you
+      explicitly asked for by clicking &ldquo;sign in&rdquo;, which is exempt from cookie-consent
+      requirements under the ePrivacy Directive (Art. 5(3)). It's not set for anyone who
+      doesn't sign in, and it's never used for advertising, tracking, or analytics.
     </p>
 
     <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Third parties</h2>
