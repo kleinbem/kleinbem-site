@@ -1,10 +1,12 @@
 <script lang="ts">
   import { createForm } from "@tanstack/svelte-form";
+  import TurnstileWidget from "./TurnstileWidget.svelte";
 
   let { email }: { email: string } = $props();
 
   let sent = $state(false);
   let failed = $state(false);
+  let turnstileToken = $state("");
 
   const form = createForm(() => ({
     defaultValues: { name: "", email: "", message: "", company: "" },
@@ -14,7 +16,7 @@
         const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(value),
+          body: JSON.stringify({ ...value, turnstileToken }),
         });
         if (!res.ok) throw new Error(`contact endpoint returned ${res.status}`);
         sent = true;
@@ -127,11 +129,13 @@
     {/snippet}
   </form.Field>
 
+  <TurnstileWidget onToken={(t) => (turnstileToken = t)} />
+
   <form.Subscribe selector={(s) => ({ canSubmit: s.canSubmit, submitting: s.isSubmitting })}>
     {#snippet children({ canSubmit, submitting })}
       <button
         type="submit"
-        disabled={!canSubmit}
+        disabled={!canSubmit || !turnstileToken}
         class="inline-flex w-fit items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover disabled:opacity-50"
       >
         {submitting ? "Sending…" : "Send"}

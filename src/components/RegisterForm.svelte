@@ -1,11 +1,13 @@
 <script lang="ts">
   import { authClient } from "../lib/auth-client";
+  import TurnstileWidget from "./TurnstileWidget.svelte";
 
   let name = $state("");
   let email = $state("");
   let password = $state("");
   let confirmPassword = $state("");
   let website = $state(""); // honeypot — hidden below, checked server-side (auth.ts hook)
+  let turnstileToken = $state("");
   let busy = $state(false);
   let error = $state("");
 
@@ -23,6 +25,7 @@
         email,
         password,
         website,
+        turnstileToken,
         callbackURL: location.origin,
       });
       if (res.error) {
@@ -87,13 +90,15 @@
     />
   </div>
 
+  <TurnstileWidget onToken={(t) => (turnstileToken = t)} />
+
   {#if error}
     <p class="text-xs text-red-500">{error}</p>
   {/if}
 
   <button
     type="submit"
-    disabled={busy}
+    disabled={busy || !turnstileToken}
     class="rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover disabled:opacity-50"
   >
     {busy ? "Creating account…" : "Create account"}
