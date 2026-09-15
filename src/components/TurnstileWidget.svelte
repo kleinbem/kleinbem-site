@@ -7,8 +7,7 @@
   // Not a secret — Turnstile sitekeys are meant to ship in page source, same
   // as the Cloudflare Web Analytics token in Layout.astro. Provisioned by
   // nix/infra/cloudflare-turnstile.tf (`tofu output turnstile_site_key`).
-  // TODO(martin): replace once the widget exists — see the Terraform output.
-  const SITE_KEY = "1x00000000000000000000AA";
+  const SITE_KEY = "0x4AAAAAAE2-QWKGJRnCOdvp";
 
   function loadScript(): Promise<void> {
     const w = window as unknown as { turnstile?: unknown };
