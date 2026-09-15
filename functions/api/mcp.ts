@@ -7,7 +7,7 @@
 // single JSON-RPC object. See https://modelcontextprotocol.io.
 import { site } from "../../src/data/site";
 import { links } from "../../src/data/links";
-import { services } from "../../src/data/services";
+import { services, faqs } from "../../src/data/services";
 import { experience, skills } from "../../src/data/experience";
 
 const PROTOCOL_VERSION = "2025-06-18";
@@ -35,7 +35,8 @@ const TOOLS = [
   },
   {
     name: "get_services",
-    description: "List the consulting services Martin Kleinberger offers.",
+    description:
+      "List the consulting services Martin Kleinberger offers, including key deliverables, target clients, and FAQs.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
@@ -64,7 +65,7 @@ function callTool(name: string): unknown {
         url: "https://www.kleinbem.dev",
       };
     case "get_services":
-      return { services };
+      return { services, faqs };
     case "get_experience":
       return { experience, skills };
     case "get_links":

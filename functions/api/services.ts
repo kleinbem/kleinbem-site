@@ -1,4 +1,4 @@
-import { services } from "../../src/data/services";
+import { services, faqs } from "../../src/data/services";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -7,6 +7,7 @@ const CORS_HEADERS = {
 };
 
 export const onRequestGet: PagesFunction = async () =>
-  Response.json({ services }, { headers: CORS_HEADERS });
+  Response.json({ services, faqs }, { headers: CORS_HEADERS });
 
-export const onRequestOptions: PagesFunction = async () => new Response(null, { headers: CORS_HEADERS });
+export const onRequestOptions: PagesFunction = async () =>
+  new Response(null, { headers: CORS_HEADERS });

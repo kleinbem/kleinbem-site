@@ -14,6 +14,8 @@ interface Props {
   publishedTime?: string;
   /** Keep thin utility pages (login/register/reset) out of search results. */
   noindex?: boolean;
+  /** Additional Schema.org structured data (e.g. Service, FAQPage). */
+  extraJsonLd?: Record<string, any> | Record<string, any>[];
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   type = "website",
   publishedTime,
   noindex = false,
+  extraJsonLd,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://www.kleinbem.dev");
@@ -124,6 +127,20 @@ const isActive = (href: string) =>
         set:html={JSON.stringify(articleJsonLd).replace(/</g, "\\u003c")}
       />
     )}
+    {extraJsonLd &&
+      (Array.isArray(extraJsonLd) ? (
+        extraJsonLd.map((schema) => (
+          <script
+            type="application/ld+json"
+            set:html={JSON.stringify(schema).replace(/</g, "\\u003c")}
+          />
+        ))
+      ) : (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(extraJsonLd).replace(/</g, "\\u003c")}
+        />
+      ))}
 
     <!--
       Cloudflare Web Analytics (privacy-preserving, cookieless — see
