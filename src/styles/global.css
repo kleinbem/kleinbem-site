@@ -1,28 +1,48 @@
 @import "tailwindcss";
 
-/* Self-hosted variable fonts (no external requests — matters for the Impressum
-   jurisdictions and offline builds). */
-@import "@fontsource-variable/inter";
+/* Self-hosted fonts (no external requests — matters for the Impressum
+   jurisdictions and offline builds). Roboto is Material Design's default
+   typeface. */
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
 @import "@fontsource-variable/jetbrains-mono";
 
-/* Semantic design tokens. Components reference these names only (bg-bg,
-   text-fg, border-line, …) so the palette lives in one place.
-   This is a LIGHT site by design — no prefers-color-scheme dark variant;
-   it renders light regardless of the visitor's OS setting. */
+/* Material Design 3 color system, generated from seed #1a73e8 (Google
+   Blue — the primary used across gmail.com/drive.google.com/etc.) via
+   @material/material-color-utilities' SchemeTonalSpot (light theme,
+   standard contrast). M3 deliberately doesn't use the seed color as-is
+   for text-bearing roles like `primary` — it's tone-adjusted for
+   contrast; the seed's full chroma shows up in `accent-soft` (M3's
+   primaryContainer) instead. Regenerate by running SchemeTonalSpot +
+   MaterialDynamicColors over the seed if the brand color ever changes;
+   see git history for the exact script.
+   Components reference the semantic names below (bg-accent, text-heading,
+   border-line, …), not raw M3 role names, so the palette stays swappable
+   in one place. This is a LIGHT site by design — no dark scheme. */
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --color-bg: #ffffff;
-  --color-surface: #f7f8fa;
-  --color-line: #e4e7ec;
-  --color-fg: #414651;
-  --color-muted: #6b7280;
-  --color-heading: #101828;
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-accent-fg: #ffffff;
-  --color-accent-soft: #eff4ff;
+  --color-bg: #f9f9ff; /* M3 surface */
+  --color-surface: #f3f3fa; /* M3 surfaceContainerLow — cards, panels */
+  --color-surface-high: #ededf4; /* M3 surfaceContainer — dropdowns, menus */
+  --color-line: #c4c6d0; /* M3 outlineVariant — subtle dividers/borders */
+  --color-outline: #74777f; /* M3 outline — stronger borders (inputs, chips, focus) */
+  --color-heading: #1a1b20; /* M3 onSurface */
+  --color-fg: #44474f; /* M3 onSurfaceVariant */
+  --color-muted: #74777f; /* M3 outline, reused for muted/secondary text */
+  --color-accent: #435e91; /* M3 primary */
+  --color-accent-hover: color-mix(in srgb, #435e91 85%, black);
+  --color-accent-fg: #ffffff; /* M3 onPrimary */
+  --color-accent-soft: #d8e2ff; /* M3 primaryContainer */
+  --color-accent-soft-fg: #2a4678; /* M3 onPrimaryContainer */
+
+  /* M3 elevation — dual umbra/penumbra shadow tokens (levels 4-5 are
+     unused on this site; nothing here needs to float that high). */
+  --shadow-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --shadow-elevation-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --shadow-elevation-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
 }
 
 @layer base {
@@ -33,10 +53,6 @@
     scroll-behavior: smooth;
     background-color: var(--color-bg);
     color-scheme: light;
-  }
-
-  body {
-    font-feature-settings: "cv05", "cv11", "ss01";
   }
 
   ::selection {

@@ -4,9 +4,9 @@ import { site } from "../data/site";
 import { courses } from "../data/courses";
 
 const statusStyle: Record<string, string> = {
-  Available: "border-accent/40 bg-accent-soft text-accent",
-  "In development": "border-line text-muted",
-  "Coming soon": "border-line text-muted",
+  Available: "bg-accent-soft text-accent-soft-fg",
+  "In development": "border border-outline text-muted",
+  "Coming soon": "border border-outline text-muted",
 };
 ---
 
@@ -20,12 +20,12 @@ const statusStyle: Record<string, string> = {
 
     <div class="mt-10 grid gap-4">
       {courses.map((course) => (
-        <article class="rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent/40">
+        <article class="rounded-xl bg-surface p-6 shadow-elevation-1 transition-shadow hover:shadow-elevation-2">
           <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
             <h2 class="font-medium text-heading">{course.title}</h2>
             <span
               class:list={[
-                "rounded-full border px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide",
+                "rounded-lg px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide",
                 statusStyle[course.status],
               ]}
             >
@@ -37,16 +37,16 @@ const statusStyle: Record<string, string> = {
       ))}
     </div>
 
-    <div class="mt-12 rounded-xl border border-line bg-surface p-6">
-      <p class="text-[15px] text-fg">Want to know when a course ships?</p>
-      <p class="mt-1 text-sm text-muted">
+    <div class="mt-12 rounded-xl bg-accent-soft p-6">
+      <p class="text-[15px] text-accent-soft-fg">Want to know when a course ships?</p>
+      <p class="mt-1 text-sm text-accent-soft-fg opacity-80">
         Course announcements go out on the newsletter first.
       </p>
       <a
         href="https://kleinbem.substack.com"
         target="_blank"
         rel="noopener noreferrer"
-        class="mt-3 inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+        class="mt-3 inline-flex items-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
       >
         Subscribe on Substack
       </a>

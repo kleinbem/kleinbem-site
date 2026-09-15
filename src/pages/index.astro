@@ -26,13 +26,13 @@ import { skills } from "../data/experience";
       <div class="mt-8 flex flex-wrap gap-3">
         <a
           href={`mailto:${site.email}`}
-          class="inline-flex items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover"
+          class="inline-flex items-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
         >
           Get in touch
         </a>
         <a
           href="/services"
-          class="inline-flex items-center rounded-lg border border-line px-4 py-2 text-sm font-medium text-heading transition-colors hover:bg-surface"
+          class="inline-flex items-center rounded-full border border-outline px-6 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-accent-soft"
         >
           View services
         </a>
@@ -40,7 +40,7 @@ import { skills } from "../data/experience";
 
       <ul class="mt-10 flex flex-wrap gap-2">
         {skills.map((skill) => (
-          <li class="rounded-full border border-line px-2.5 py-1 text-xs text-muted">
+          <li class="rounded-lg border border-outline px-3 py-1.5 text-xs text-muted">
             {skill}
           </li>
         ))}

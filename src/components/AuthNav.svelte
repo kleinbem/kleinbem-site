@@ -18,19 +18,18 @@
     }
   }
 
-  const menuClass =
-    "absolute right-0 mt-2 w-48 rounded-lg border border-line bg-bg p-1 shadow-lg";
+  const menuClass = "absolute right-0 mt-2 w-48 rounded-xl bg-surface-high p-1.5 shadow-elevation-2";
   const itemClass =
-    "block w-full rounded-md px-3 py-2 text-left text-sm text-fg transition-colors hover:bg-surface disabled:opacity-50";
+    "block w-full rounded-lg px-3 py-2 text-left text-sm text-fg transition-colors hover:bg-surface disabled:opacity-50";
 </script>
 
 <div class="relative">
   {#if $session.isPending}
-    <span class="px-2.5 py-1.5 text-sm text-muted">…</span>
+    <span class="px-3 py-1.5 text-sm text-muted">…</span>
   {:else if $session.data}
     <button
       type="button"
-      class="rounded-md px-2.5 py-1.5 text-sm text-muted transition-colors hover:text-heading"
+      class="rounded-full px-3 py-1.5 text-sm text-muted transition-colors hover:bg-surface-high hover:text-heading"
       aria-expanded={open}
       onclick={() => (open = !open)}
     >
@@ -44,7 +43,7 @@
   {:else}
     <a
       href="/login"
-      class="rounded-md px-2.5 py-1.5 text-sm text-muted transition-colors hover:text-heading"
+      class="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
     >
       Sign in
     </a>

@@ -22,7 +22,7 @@ const dateFmt = new Intl.DateTimeFormat("en-IE", { year: "numeric", month: "long
         <li>
           <a
             href={`/blog/${post.id}/`}
-            class="group block rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent/40"
+            class="group block rounded-xl bg-surface p-6 shadow-elevation-1 transition-shadow hover:shadow-elevation-2"
           >
             <p class="font-mono text-xs text-muted">{dateFmt.format(post.data.pubDate)}</p>
             <h2 class="mt-1 font-medium text-heading group-hover:text-accent">

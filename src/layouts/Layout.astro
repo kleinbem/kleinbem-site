@@ -146,19 +146,19 @@ const isActive = (href: string) =>
   <body class="flex min-h-screen flex-col bg-bg text-fg antialiased">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm focus:text-heading"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-surface-high focus:px-3 focus:py-2 focus:text-sm focus:text-heading focus:shadow-elevation-2"
     >
       Skip to content
     </a>
 
-    <header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur">
+    <header class="sticky top-0 z-40 bg-surface shadow-elevation-1">
       <div class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
         <a
           href="/"
-          class="flex items-center gap-2 font-semibold tracking-tight text-heading"
+          class="flex items-center gap-2 font-medium tracking-tight text-heading"
         >
           <span
-            class="grid h-7 w-7 place-items-center rounded-md border border-line bg-surface font-mono text-[13px] text-accent"
+            class="grid h-8 w-8 place-items-center rounded-lg bg-accent-soft font-mono text-[13px] text-accent-soft-fg"
             aria-hidden="true"
           >
             MK
@@ -169,17 +169,18 @@ const isActive = (href: string) =>
           <!-- >=640px: full horizontal nav. Below that it doesn't fit and
                was overflowing the viewport (real mobile bug, found by
                testing at a real narrow width — the rest of the page
-               reflows fine, only this row didn't). -->
+               reflows fine, only this row didn't). Active-item pill
+               mirrors M3's NavigationBar/Rail "active indicator" pattern. -->
           <nav class="hidden items-center gap-1 text-sm sm:flex">
             {nav.map((item) => (
               <a
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
                 class:list={[
-                  "rounded-md px-2.5 py-1.5 transition-colors",
+                  "rounded-full px-3 py-1.5 transition-colors",
                   isActive(item.href)
-                    ? "font-medium text-heading"
-                    : "text-muted hover:text-heading",
+                    ? "bg-accent-soft font-medium text-accent-soft-fg"
+                    : "text-muted hover:bg-surface-high hover:text-heading",
                 ]}
               >
                 {item.label}
@@ -191,23 +192,23 @@ const isActive = (href: string) =>
                needed for the toggle itself. -->
           <details class="relative sm:hidden">
             <summary
-              class="grid h-9 w-9 list-none place-items-center rounded-md border border-line text-muted transition-colors hover:text-heading [&::-webkit-details-marker]:hidden"
+              class="grid h-10 w-10 list-none place-items-center rounded-full text-muted transition-colors hover:bg-surface-high hover:text-heading [&::-webkit-details-marker]:hidden"
               aria-label="Menu"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                 <path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
               </svg>
             </summary>
-            <div class="absolute right-0 top-full z-50 mt-2 w-52 rounded-lg border border-line bg-surface p-1.5 shadow-lg">
+            <div class="absolute right-0 top-full z-50 mt-2 w-52 rounded-xl bg-surface-high p-1.5 shadow-elevation-2">
               {nav.map((item) => (
                 <a
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   class:list={[
-                    "block rounded-md px-3 py-2 text-sm transition-colors",
+                    "block rounded-lg px-3 py-2 text-sm transition-colors",
                     isActive(item.href)
-                      ? "font-medium text-heading"
-                      : "text-muted hover:text-heading",
+                      ? "bg-accent-soft font-medium text-accent-soft-fg"
+                      : "text-muted hover:bg-surface hover:text-heading",
                   ]}
                 >
                   {item.label}

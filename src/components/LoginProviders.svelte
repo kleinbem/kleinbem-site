@@ -33,7 +33,7 @@
   }
 
   const buttonClass =
-    "flex w-full items-center gap-3 rounded-lg border border-line px-4 py-2.5 text-sm font-medium text-heading transition-colors hover:bg-surface disabled:opacity-50";
+    "flex w-full items-center gap-3 rounded-full border border-outline px-4 py-2.5 text-sm font-medium text-heading transition-colors hover:bg-surface-high disabled:opacity-50";
 </script>
 
 <div class="grid gap-3">

@@ -21,9 +21,9 @@
       <button
         type="button"
         aria-pressed={active === cat}
-        class="rounded-full border px-3 py-1 text-xs transition-colors {active === cat
-          ? 'border-accent bg-accent-soft text-accent'
-          : 'border-line text-muted hover:border-accent/50 hover:text-heading'}"
+        class="rounded-lg px-3 py-1 text-xs transition-colors {active === cat
+          ? 'bg-accent-soft font-medium text-accent-soft-fg'
+          : 'border border-outline text-muted hover:bg-surface-high hover:text-heading'}"
         onclick={() => (active = cat)}
       >
         {cat}
@@ -40,7 +40,7 @@
       >
         <a
           href={link.url}
-          class="group block rounded-lg border border-line bg-surface px-4 py-3 transition-colors hover:border-accent/40"
+          class="group block rounded-xl bg-surface px-4 py-3 shadow-elevation-1 transition-shadow hover:shadow-elevation-2"
           target={isExternal(link.url) ? "_blank" : undefined}
           rel={isExternal(link.url) ? "noopener noreferrer" : undefined}
         >

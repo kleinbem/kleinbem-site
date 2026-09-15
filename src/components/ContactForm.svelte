@@ -28,7 +28,7 @@
   }));
 
   const inputClass =
-    "w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-fg outline-none transition-colors focus:border-accent";
+    "w-full rounded border-2 border-outline bg-bg px-3 py-2 text-sm text-fg outline-none transition-colors focus:border-accent";
 </script>
 
 <form
@@ -136,7 +136,7 @@
       <button
         type="submit"
         disabled={!canSubmit || !turnstileToken}
-        class="inline-flex w-fit items-center rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent-hover disabled:opacity-50"
+        class="inline-flex w-fit items-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1 disabled:opacity-50 disabled:hover:shadow-none"
       >
         {submitting ? "Sending…" : "Send"}
       </button>
