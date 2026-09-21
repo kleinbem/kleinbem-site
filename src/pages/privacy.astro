@@ -2,12 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import { site } from "../data/site";
 
-const updated = "14 September 2026";
+const updated = "21 September 2026";
 ---
 
 <Layout
   title={`Privacy Policy — ${site.name}`}
-  description="How kleinbem.dev handles personal data, including optional sign-in via social providers or email and password."
+  description="How kleinbem.dev handles personal data, including optional sign-in via email and password."
 >
   <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
     <h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Privacy Policy</h1>
@@ -24,44 +24,33 @@ const updated = "14 September 2026";
     <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Signing in</h2>
     <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
       Sign-in is entirely optional — the site is fully usable without an account. If you choose
-      to sign in, authentication is handled by a self-hosted service at
-      <code class="rounded bg-surface px-1 py-0.5 text-[13px]">login.kleinbem.dev</code> that
-      I operate on my own infrastructure. Two ways to sign in are offered:
+      to sign in, you're taken to <code class="rounded bg-surface px-1 py-0.5 text-[13px]"
+        >auth.kleinbem.dev</code
+      >, a self-hosted identity service (Authentik) that I operate on my own infrastructure, to
+      authenticate with an email and password. No password is ever seen or stored by
+      kleinbem.dev itself — this site never receives it; it's created and verified entirely on
+      auth.kleinbem.dev, using the industry-standard OpenID Connect protocol. Social sign-in
+      (Google, GitHub, etc.) isn't currently offered — this section will be updated first if
+      that changes.
     </p>
-    <ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
-      <li>
-        <strong class="font-medium">A social provider</strong> — Google, LinkedIn, GitHub,
-        Microsoft, or Facebook. No account or password is created on this site; you authenticate
-        directly with the provider you choose.
-      </li>
-      <li>
-        <strong class="font-medium">Email and password</strong> — an account and a password
-        <em>are</em> created on this site in that case. Passwords are never stored in plain text;
-        only a salted cryptographic hash is kept, which cannot be reversed to recover the
-        original password.
-      </li>
-    </ul>
 
     <h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">
       What is stored
     </h3>
     <ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
       <li>
-        <strong class="font-medium">Social sign-in:</strong> from your provider profile, your
-        <strong class="font-medium">name</strong>, <strong class="font-medium">email address</strong>,
-        <strong class="font-medium">profile picture URL</strong>, and the provider's
-        <strong class="font-medium">account identifier</strong>. The OAuth tokens the provider
-        issues so the session can be established — offline / long-term access is not requested.
+        On <strong class="font-medium">auth.kleinbem.dev</strong> (not on kleinbem.dev itself):
+        your <strong class="font-medium">name</strong>,
+        <strong class="font-medium">email address</strong>, and
+        <strong class="font-medium">password hash</strong>. Passwords are never stored in plain
+        text; the hash cannot be reversed to recover the original password.
       </li>
       <li>
-        <strong class="font-medium">Email + password sign-in:</strong> the
-        <strong class="font-medium">name</strong>, <strong class="font-medium">email address</strong>,
-        and <strong class="font-medium">password hash</strong> you provide when creating an
-        account.
-      </li>
-      <li>
-        Session records, either way: a session identifier, its creation and expiry time, your IP
-        address, and your browser's user-agent string. Sessions are valid for up to 30 days.
+        On <strong class="font-medium">kleinbem.dev</strong>, once you've signed in: a single
+        cookie containing only your <strong class="font-medium">name</strong> and
+        <strong class="font-medium">email address</strong>, cryptographically signed so it
+        can't be altered. No password, and no data from auth.kleinbem.dev beyond those two
+        fields, ever reaches kleinbem.dev.
       </li>
     </ul>
 
@@ -69,27 +58,18 @@ const updated = "14 September 2026";
       Purpose and legal basis
     </h3>
     <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
-      This data is used solely to authenticate you and keep you signed in across
-      <code class="rounded bg-surface px-1 py-0.5 text-[13px]">kleinbem.dev</code> and its
-      subdomains. The legal basis is your consent, given when you choose to sign in
-      (GDPR Art. 6(1)(a)), and the performance of providing the account feature you requested.
+      This data is used solely to authenticate you and keep you signed in on
+      <code class="rounded bg-surface px-1 py-0.5 text-[13px]">kleinbem.dev</code>. The legal
+      basis is your consent, given when you choose to sign in (GDPR Art. 6(1)(a)), and the
+      performance of providing the account feature you requested.
     </p>
 
     <h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">Cookies</h3>
     <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
-      A single session cookie is set on the <code
-        class="rounded bg-surface px-1 py-0.5 text-[13px]">.kleinbem.dev</code
-      > domain <em>only after you sign in</em>, so the session works across subdomains. It is
-      removed when you sign out. There are no advertising or tracking cookies, and no cookies
-      at all until you sign in.
-    </p>
-    <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
-      If you sign in with email and password, a &ldquo;Stay signed in for 30 days&rdquo;
-      checkbox controls how long the cookie itself is kept: checked, it persists in your
-      browser for up to 30 days so you're not asked to sign in again on your next visit;
-      unchecked, it's a session cookie that's discarded the moment you close your browser.
-      Signing in with a social provider always sets a persistent cookie, valid for up to 30
-      days.
+      A single session cookie is set on <code class="rounded bg-surface px-1 py-0.5 text-[13px]"
+        >kleinbem.dev</code
+      > <em>only after you sign in</em>, valid for up to 30 days, and removed when you sign out.
+      There are no advertising or tracking cookies, and no cookies at all until you sign in.
     </p>
     <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
       This cookie doesn't need a consent banner: it's strictly necessary for a feature you
@@ -100,15 +80,6 @@ const updated = "14 September 2026";
 
     <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Third parties</h2>
     <dl class="mt-4 grid gap-x-8 gap-y-5 text-sm sm:grid-cols-[10rem_1fr]">
-      <dt class="font-mono text-xs uppercase tracking-wider text-muted">
-        Google / LinkedIn / GitHub / Microsoft / Meta
-      </dt>
-      <dd class="text-fg">
-        Used only as identity providers when you choose that sign-in method. Their handling of
-        your data on their side is governed by their own privacy policies. This site requests
-        only your basic profile (name, email, picture) from whichever one you pick.
-      </dd>
-
       <dt class="font-mono text-xs uppercase tracking-wider text-muted">Cloudflare</dt>
       <dd class="text-fg">
         CDN and reverse proxy. Access logs record technical data including IP addresses,
@@ -117,9 +88,8 @@ const updated = "14 September 2026";
         aggregate traffic measure (page views, referrers, countries, load performance) that
         sets no cookies, stores nothing on your device, and does not build a profile of you or
         track you across sites. And <strong class="font-medium">Turnstile</strong>: a bot-check
-        on the contact form and account registration, which briefly processes some technical
-        signals from your browser (not a CAPTCHA image puzzle) to tell human visitors from
-        automated traffic — see
+        on the contact form, which briefly processes some technical signals from your browser
+        (not a CAPTCHA image puzzle) to tell human visitors from automated traffic — see
         <a
           href="https://www.cloudflare.com/turnstile-privacy-policy/"
           rel="noopener"

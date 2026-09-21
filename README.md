@@ -1,7 +1,8 @@
 # kleinbem.dev
 
-Personal site — Astro + Svelte + Tailwind, built as a Nix package and served
-from Caddy on `core-pi` behind a Cloudflare Tunnel.
+Personal site — Astro + Svelte + Tailwind, served from Cloudflare Pages
+(`www.kleinbem.dev`; the apex redirects to it — see `nix/infra/cloudflare-pages.tf`
+in the fleet repo). CI (`.github/workflows/ci.yaml`) builds and deploys it.
 
 ```
 src/pages/
@@ -14,8 +15,9 @@ src/pages/
 └── privacy.astro
 ```
 
-Visitor login (Google/Facebook OAuth via `AuthNav`) is served by the
-sibling `kleinbem-auth` repo.
+Visitor login (`AuthNav` + `functions/auth/*`) is OIDC/PKCE against the
+fleet's Authentik instance (`auth.kleinbem.dev`) — see `functions/auth/_lib.ts`.
+Replaces the sibling `kleinbem-auth` repo, which is being decommissioned.
 
 See `AGENTS.md`/`CLAUDE.md` for the dev workflow and
 [docs.astro.build](https://docs.astro.build) for framework reference.

@@ -12,7 +12,7 @@ interface Props {
   type?: "website" | "article";
   /** ISO 8601 date, required when type="article". */
   publishedTime?: string;
-  /** Keep thin utility pages (login/register/reset) out of search results. */
+  /** Keep thin utility pages (e.g. login-error) out of search results. */
   noindex?: boolean;
   /** Additional Schema.org structured data (e.g. Service, FAQPage). */
   extraJsonLd?: Record<string, any> | Record<string, any>[];

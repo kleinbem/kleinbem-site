@@ -19,7 +19,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/svelte-form": "^1.33.5",
     "astro": "^7.3.2",
-    "better-auth": "^1.7.4",
+    "jose": "^6.2.12",
     "svelte": "^5.56.9",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3"

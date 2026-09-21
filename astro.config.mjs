@@ -20,10 +20,7 @@ export default defineConfig({
       // Keep in sync with the noindex pages in src/pages — listing a
       // noindexed page in the sitemap is a contradictory signal Search
       // Console flags ("Submitted URL marked 'noindex'").
-      filter: (page) =>
-        !["login", "register", "forgot-password", "reset-password"].some((p) =>
-          page.endsWith(`/${p}/`),
-        ),
+      filter: (page) => !["login-error"].some((p) => page.endsWith(`/${p}/`)),
     }),
   ],
 
