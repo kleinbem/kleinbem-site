@@ -7,7 +7,7 @@ const updated = "21 September 2026";
 
 <Layout
   title={`Privacy Policy — ${site.name}`}
-  description="How kleinbem.dev handles personal data, including optional sign-in via email and password."
+  description="How kleinbem.dev handles personal data, including optional sign-in via email/password or Google."
 >
   <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
     <h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Privacy Policy</h1>
@@ -26,13 +26,22 @@ const updated = "21 September 2026";
       Sign-in is entirely optional — the site is fully usable without an account. If you choose
       to sign in, you're taken to <code class="rounded bg-surface px-1 py-0.5 text-[13px]"
         >auth.kleinbem.dev</code
-      >, a self-hosted identity service (Authentik) that I operate on my own infrastructure, to
-      authenticate with an email and password. No password is ever seen or stored by
-      kleinbem.dev itself — this site never receives it; it's created and verified entirely on
-      auth.kleinbem.dev, using the industry-standard OpenID Connect protocol. Social sign-in
-      (Google, GitHub, etc.) isn't currently offered — this section will be updated first if
-      that changes.
+      >, a self-hosted identity service (Authentik) that I operate on my own infrastructure,
+      using the industry-standard OpenID Connect protocol. Two ways to sign in are offered:
     </p>
+    <ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
+      <li>
+        <strong class="font-medium">Email and password</strong> — created and verified entirely
+        on auth.kleinbem.dev. No password is ever seen or stored by kleinbem.dev itself — this
+        site never receives it.
+      </li>
+      <li>
+        <strong class="font-medium">Google</strong> — you authenticate directly with Google;
+        auth.kleinbem.dev never sees your Google password, only the basic profile info Google
+        shares back (see &ldquo;Third parties&rdquo; below). No other social providers are
+        currently offered.
+      </li>
+    </ul>
 
     <h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">
       What is stored
@@ -40,10 +49,11 @@ const updated = "21 September 2026";
     <ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
       <li>
         On <strong class="font-medium">auth.kleinbem.dev</strong> (not on kleinbem.dev itself):
-        your <strong class="font-medium">name</strong>,
-        <strong class="font-medium">email address</strong>, and
-        <strong class="font-medium">password hash</strong>. Passwords are never stored in plain
-        text; the hash cannot be reversed to recover the original password.
+        your <strong class="font-medium">name</strong> and
+        <strong class="font-medium">email address</strong>, plus — for email/password sign-in
+        only — a <strong class="font-medium">password hash</strong>. Passwords are never stored
+        in plain text; the hash cannot be reversed to recover the original password. Signing in
+        with Google creates no password at all.
       </li>
       <li>
         On <strong class="font-medium">kleinbem.dev</strong>, once you've signed in: a single
@@ -80,6 +90,19 @@ const updated = "21 September 2026";
 
     <h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Third parties</h2>
     <dl class="mt-4 grid gap-x-8 gap-y-5 text-sm sm:grid-cols-[10rem_1fr]">
+      <dt class="font-mono text-xs uppercase tracking-wider text-muted">Google</dt>
+      <dd class="text-fg">
+        Used only as an identity provider if you choose to sign in with Google —
+        auth.kleinbem.dev requests your basic profile (name, email) from Google, nothing more.
+        Google's handling of your data on its own side is governed by
+        <a
+          href="https://policies.google.com/privacy"
+          rel="noopener"
+          class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+          >Google's own privacy policy</a
+        >.
+      </dd>
+
       <dt class="font-mono text-xs uppercase tracking-wider text-muted">Cloudflare</dt>
       <dd class="text-fg">
         CDN and reverse proxy. Access logs record technical data including IP addresses,
