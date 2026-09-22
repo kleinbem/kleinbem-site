@@ -33,4 +33,4 @@ jobs:
           # functions/api/contact.ts) — its peer dep wants ^4.x. Pin the
           # actual current wrangler major instead of downgrading the types.
           wranglerVersion: "4"
-          command: pages deploy dist --project-name=kleinbem-site --branch=main
+          command: pages deploy .svelte-kit/cloudflare --project-name=kleinbem-site --branch=main
