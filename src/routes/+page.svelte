@@ -1,0 +1,71 @@
+<script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
+	import LinksHub from '$lib/components/LinksHub.svelte';
+	import ContactForm from '$lib/components/ContactForm.svelte';
+	import { site } from '$lib/data/site';
+	import { links } from '$lib/data/links';
+	import { skills } from '$lib/data/experience';
+</script>
+
+<Seo />
+
+<section class="hero-glow border-b border-line">
+	<div class="mx-auto max-w-3xl px-6 pt-20 pb-16">
+		<p class="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-accent">
+			{site.location}
+		</p>
+		<h1 class="text-4xl font-semibold leading-[1.1] tracking-tight text-heading sm:text-5xl">
+			{site.name}
+		</h1>
+		<p class="mt-4 max-w-2xl text-xl leading-snug text-fg">
+			{site.role}
+		</p>
+		<p class="mt-6 max-w-2xl text-[15px] leading-relaxed text-muted">
+			{site.bio}
+		</p>
+
+		<div class="mt-8 flex flex-wrap gap-3">
+			<a
+				href={`mailto:${site.email}`}
+				class="inline-flex items-center rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
+			>
+				Get in touch
+			</a>
+			<a
+				href="/services"
+				class="inline-flex items-center rounded-full border border-outline px-6 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-accent-soft"
+			>
+				View services
+			</a>
+		</div>
+
+		<ul class="mt-10 flex flex-wrap gap-2">
+			{#each skills as skill}
+				<li class="rounded-lg border border-outline px-3 py-1.5 text-xs text-muted">
+					{skill}
+				</li>
+			{/each}
+		</ul>
+	</div>
+</section>
+
+<section class="mx-auto max-w-3xl px-6 py-12">
+	<h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">Links</h2>
+	<LinksHub {links} />
+</section>
+
+<section id="contact" class="mx-auto max-w-3xl scroll-mt-20 border-t border-line px-6 py-12">
+	<h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">Contact</h2>
+	<p class="max-w-2xl text-[15px] leading-relaxed text-muted">
+		Interested in working together, or hiring? Send a message below, or reach out directly at
+		<a
+			href={`mailto:${site.email}`}
+			class="font-medium text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+		>
+			{site.email}</a
+		>.
+	</p>
+	<div class="mt-6 max-w-md">
+		<ContactForm email={site.email} />
+	</div>
+</section>

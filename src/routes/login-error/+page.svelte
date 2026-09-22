@@ -1,0 +1,34 @@
+<script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
+	import { site } from '$lib/data/site';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
+
+	// Kept in sync with the `reason` values errorRedirect() in
+	// src/lib/server/auth.ts / src/routes/auth/callback can produce.
+	const messages: Record<string, string> = {
+		missing_code_or_state: 'The sign-in link was incomplete.',
+		expired_or_missing_pkce_cookie: 'That sign-in link expired — please try again.',
+		state_mismatch: "The sign-in request didn't match — please try again.",
+		nonce_mismatch: "The sign-in request didn't match — please try again.",
+		malformed_pkce_cookie: 'Something went wrong starting sign-in — please try again.',
+		token_exchange_failed: "The identity provider couldn't complete sign-in.",
+		no_id_token_returned: "The identity provider didn't return a valid session.",
+		id_token_invalid: "The identity provider's response couldn't be verified."
+	};
+	const message = $derived(messages[data.reason ?? ''] ?? 'Something went wrong signing in.');
+</script>
+
+<Seo title={`Sign-in error — ${site.name}`} description="Sign-in error." noindex />
+
+<section class="mx-auto max-w-sm px-6 pt-20 pb-16">
+	<h1 class="text-2xl font-semibold tracking-tight text-heading">Sign-in error</h1>
+	<p class="mt-2 text-[15px] leading-relaxed text-muted">{message}</p>
+	<a
+		href="/auth/login"
+		class="mt-6 inline-block rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
+	>
+		Try again
+	</a>
+</section>

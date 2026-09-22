@@ -1,0 +1,16 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "kleinbem-site",
+	// Pages mode is selected by pages_build_output_dir (not `main` +
+	// assets.binding, which would select Workers mode). This is the
+	// SvelteKit-native replacement for the old hand-rolled `functions/`
+	// tree + static `dist/` split — deployed the same way, via
+	// `wrangler pages deploy <this dir>`, into the same Terraform-managed
+	// Cloudflare Pages project (see nix/infra/cloudflare-pages.tf).
+	"pages_build_output_dir": ".svelte-kit/cloudflare",
+	"compatibility_date": "2026-09-22",
+	// AsyncLocalStorage polyfill SvelteKit's server runtime needs. If a
+	// deploy throws async_local_storage_unavailable, switch to
+	// "nodejs_compat" instead.
+	"compatibility_flags": ["nodejs_als"]
+}

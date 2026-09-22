@@ -1,0 +1,58 @@
+<script lang="ts">
+	import Seo from '$lib/components/Seo.svelte';
+	import { site } from '$lib/data/site';
+</script>
+
+<Seo title={`Legal Notice — ${site.name}`} />
+
+<section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+	<h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Legal Notice</h1>
+	<p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
+		Service-provider information published under the European Communities (Directive 2000/31/EC)
+		Regulations 2003 (S.I. No. 68/2003), Ireland. This page also serves as the
+		<span class="whitespace-nowrap">&ldquo;Impressum&rdquo;</span> for visitors in jurisdictions that
+		require one.
+	</p>
+
+	<dl class="mt-10 grid gap-x-8 gap-y-6 text-sm sm:grid-cols-[14rem_1fr]">
+		<dt class="font-mono text-xs uppercase tracking-wider text-muted">Service provided by</dt>
+		<dd class="text-fg">{site.name} <span class="text-muted">— sole trader</span></dd>
+
+		<dt class="font-mono text-xs uppercase tracking-wider text-muted">Business address</dt>
+		<dd class="text-fg">Co. Cork, T56 T634, Ireland</dd>
+
+		<dt class="font-mono text-xs uppercase tracking-wider text-muted">Email</dt>
+		<dd>
+			<a
+				href={`mailto:${site.email}`}
+				class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+			>
+				{site.email}
+			</a>
+		</dd>
+
+		<dt class="font-mono text-xs uppercase tracking-wider text-muted">Governing law</dt>
+		<dd class="text-fg">Ireland</dd>
+	</dl>
+
+	<p class="mt-8 max-w-2xl text-xs leading-relaxed text-muted">
+		Business-name / company registration is in progress; a CRO number and, if applicable, a VAT
+		number will be added here once registration completes. Not legal advice.
+	</p>
+
+	<h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Data protection</h2>
+	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+		This is a static site with no advertising and no cross-site tracking. Traffic is measured
+		only in aggregate via Cloudflare Web Analytics, which is cookieless and stores nothing on
+		your device. It sets no cookies unless you use the optional sign-in, which sets a single
+		session cookie — see the
+		<a
+			href="/privacy"
+			class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+			>Privacy Policy</a
+		> for what that involves. Web-server and CDN (Cloudflare) access logs record technical data
+		including IP addresses, processed on a legitimate-interests basis to deliver and secure the
+		site, and retained only briefly. Questions, or requests regarding your data, can be sent to
+		the email above. You may also contact the Data Protection Commission (dataprotection.ie).
+	</p>
+</section>
