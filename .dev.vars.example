@@ -1,0 +1,21 @@
+# Copy to .dev.vars (gitignored) for local `vite dev` / `wrangler pages dev`
+# testing. @sveltejs/adapter-cloudflare's built-in platform-proxy support
+# reads this file and injects it as `platform.env` — same mechanism
+# wrangler itself uses, no extra config needed.
+#
+# AUTHENTIK_CLIENT_ID / AUTHENTIK_CLIENT_SECRET / AUTH_SESSION_SECRET: pull
+# the real values the same way they're currently retrieved for local
+# Astro-era `functions/` debugging.
+#
+# AUTH_SITE_ORIGIN: only needed to exercise the real OIDC round trip
+# locally, and only works once http://localhost:5173/auth/callback is
+# registered as a second redirect_uri on the Authentik OAuth2 provider (a
+# separate, low-risk nix-repo change — see the migration plan). Leave unset
+# to use the production origin (https://kleinbem.dev) as the default.
+AUTHENTIK_CLIENT_ID=
+AUTHENTIK_CLIENT_SECRET=
+AUTH_SESSION_SECRET=
+AUTH_SITE_ORIGIN=http://localhost:5173
+
+RESEND_API_KEY=
+TURNSTILE_SECRET_KEY=
