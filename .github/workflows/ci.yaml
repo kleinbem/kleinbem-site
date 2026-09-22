@@ -21,6 +21,31 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      # Push Pages secrets before every deploy. Pages binds secrets at
+      # deploy time, and once a project has shipped a wrangler.jsonc with
+      # pages_build_output_dir (this repo, since the SvelteKit rewrite),
+      # Cloudflare stops applying dashboard/Terraform-configured env vars at
+      # all — see nix/infra/cloudflare-pages.tf's header comment for the
+      # full incident writeup. `wrangler pages secret put` is unaffected by
+      # that and is the supported path for a Wrangler-config-managed
+      # project; running it every deploy (idempotent — overwrites, doesn't
+      # append) keeps it in sync with rotations instead of needing a manual
+      # one-off after every secret change.
+      - if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          AUTHENTIK_CLIENT_SECRET: ${{ secrets.AUTHENTIK_CLIENT_SECRET }}
+          AUTH_SESSION_SECRET: ${{ secrets.AUTH_SESSION_SECRET }}
+          TURNSTILE_SECRET_KEY: ${{ secrets.TURNSTILE_SECRET_KEY }}
+        run: |
+          printf '%s' "$AUTHENTIK_CLIENT_SECRET" | npx wrangler pages secret put AUTHENTIK_CLIENT_SECRET --project-name=kleinbem-site
+          printf '%s' "$AUTH_SESSION_SECRET" | npx wrangler pages secret put AUTH_SESSION_SECRET --project-name=kleinbem-site
+          printf '%s' "$TURNSTILE_SECRET_KEY" | npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name=kleinbem-site
+          # RESEND_API_KEY deliberately not pushed — no key configured yet,
+          # so the contact form's send will fail (it already handles that
+          # gracefully, returning a JSON error rather than crashing).
+
       # Only on main, not PRs — this pushes straight to the live
       # www.kleinbem.dev Pages project (see nix/infra/cloudflare-pages.tf).
       - if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -29,8 +54,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # wrangler-action's own default (3.90.0) peer-conflicts with
-          # @cloudflare/workers-types v5 (needed for the PagesFunction type in
-          # functions/api/contact.ts) — its peer dep wants ^4.x. Pin the
+          # @cloudflare/workers-types v5 — its peer dep wants ^4.x. Pin the
           # actual current wrangler major instead of downgrading the types.
           wranglerVersion: "4"
           command: pages deploy .svelte-kit/cloudflare --project-name=kleinbem-site --branch=main

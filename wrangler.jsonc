@@ -12,5 +12,18 @@
 	// AsyncLocalStorage polyfill SvelteKit's server runtime needs. If a
 	// deploy throws async_local_storage_unavailable, switch to
 	// "nodejs_compat" instead.
-	"compatibility_flags": ["nodejs_als"]
+	"compatibility_flags": ["nodejs_als"],
+	// Non-secret only. Once a Pages project has been deployed with this file
+	// present, Cloudflare stops injecting dashboard/Terraform-configured
+	// plaintext env vars (confirmed live 2026-09-22 — see
+	// nix/infra/cloudflare-pages.tf's header comment) — `vars` here is now
+	// the only thing that reaches `platform.env` for non-secret config. The
+	// real secrets (AUTHENTIK_CLIENT_SECRET, AUTH_SESSION_SECRET,
+	// RESEND_API_KEY, TURNSTILE_SECRET_KEY) are pushed by CI via
+	// `wrangler pages secret put` right before deploy instead — see
+	// .github/workflows/ci.yaml. client_id isn't sensitive: it's already
+	// visible in the outgoing OAuth redirect URL to Authentik.
+	"vars": {
+		"AUTHENTIK_CLIENT_ID": "kleinbem-site"
+	}
 }
