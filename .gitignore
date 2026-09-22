@@ -1,8 +1,5 @@
 # build output
-dist/
 .svelte-kit/
-# generated types
-.astro/
 # local wrangler pages dev cache
 .wrangler/
 # real Authentik/Resend/Turnstile secrets for local `vite dev` /

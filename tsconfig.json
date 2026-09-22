@@ -7,7 +7,6 @@
     "src/service-worker.ts",
     "src/service-worker/**/*.ts",
     "src/service-worker.d.ts",
-    "src/service-worker/**/*.d.ts",
-    "src/content.config.ts"
+    "src/service-worker/**/*.d.ts"
   ]
 }
