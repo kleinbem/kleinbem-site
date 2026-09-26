@@ -2,12 +2,12 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import { site } from '$lib/data/site';
 
-	const updated = '21 September 2026';
+	const updated = '26 September 2026';
 </script>
 
 <Seo
 	title={`Privacy Policy — ${site.name}`}
-	description="How kleinbem.dev handles personal data, including optional sign-in via email/password or Google."
+	description="How kleinbem.dev handles personal data, including optional sign-in via email/password or Google, and the Google Drive access used for the operator's own backups."
 />
 
 <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
@@ -124,6 +124,38 @@
 		Your sign-in data is <strong class="font-medium">not</strong> sold, rented, or shared with
 		advertisers, and is not used for profiling or automated decision-making.
 	</p>
+
+	<h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">
+		Google Drive access (backup tool)
+	</h2>
+	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+		The Google OAuth app named <strong class="font-medium">kleinbem.dev</strong> is also used by
+		{site.name}'s own infrastructure to store off-site backups in <em>his own</em> Google Drive
+		account, via the open-source backup tool rclone. It is not offered to visitors and is never
+		used with anyone else's account.
+	</p>
+	<ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
+		<li>
+			It requests only the <code class="rounded bg-surface px-1 py-0.5 text-[13px]"
+				>drive.file</code
+			> scope: access to files the app itself created, and nothing else in that Drive.
+		</li>
+		<li>
+			Everything it uploads is encrypted before it leaves the originating machine (restic / age);
+			Google stores only ciphertext.
+		</li>
+		<li>
+			No Google user data is shared with, sold to, or transferred to any third party, and none
+			is used for advertising, analytics, or training AI/ML models. Its use of information
+			received from Google APIs adheres to the
+			<a
+				href="https://developers.google.com/terms/api-services-user-data-policy"
+				rel="noopener"
+				class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+				>Google API Services User Data Policy</a
+			>, including the Limited Use requirements.
+		</li>
+	</ul>
 
 	<h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">
 		Retention and your rights
