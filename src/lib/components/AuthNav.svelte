@@ -66,6 +66,7 @@
   {:else}
     <a
       href={signInHref}
+      rel="nofollow"
       class="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
     >
       Sign in

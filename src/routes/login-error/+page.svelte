@@ -27,6 +27,7 @@
 	<p class="mt-2 text-[15px] leading-relaxed text-muted">{message}</p>
 	<a
 		href="/auth/login"
+		rel="nofollow"
 		class="mt-6 inline-block rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-accent-fg transition-[background-color,box-shadow] hover:bg-accent-hover hover:shadow-elevation-1"
 	>
 		Try again
