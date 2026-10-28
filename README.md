@@ -17,7 +17,7 @@ src/pages/
 
 Visitor login (`AuthNav` + `functions/auth/*`) is OIDC/PKCE against the
 fleet's Authentik instance (`auth.kleinbem.dev`) — see `functions/auth/_lib.ts`.
-Replaces the sibling `kleinbem-auth` repo, which is being decommissioned.
+This replaced the old `kleinbem-auth` service (decommissioned 2026-09-21).
 
 See `AGENTS.md`/`CLAUDE.md` for the dev workflow and
 [docs.astro.build](https://docs.astro.build) for framework reference.
