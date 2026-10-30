@@ -8,6 +8,7 @@
 // real UX downgrade from the "stay signed in 30 days" behavior kleinbem-auth
 // had.
 import { SignJWT, jwtVerify } from 'jose';
+import { env } from 'cloudflare:workers';
 import type { RequestHandler } from './$types';
 import {
 	AUTH_COOKIE_FLAGS,
@@ -17,15 +18,13 @@ import {
 	TOKEN_URL,
 	redirectUri,
 	siteOrigin
-} from '$lib/server/auth';
+} from '#lib/server/auth.js';
 
 export const prerender = false;
 
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
-export const GET: RequestHandler = async ({ url, cookies, platform }) => {
-	const env = platform!.env;
-
+export const GET: RequestHandler = async ({ url, cookies }) => {
 	function errorRedirect(reason: string): Response {
 		cookies.delete(PKCE_COOKIE, AUTH_COOKIE_FLAGS);
 		const dest = new URL('/login-error', siteOrigin(env));

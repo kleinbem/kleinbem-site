@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/data/site';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/data/site.js';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

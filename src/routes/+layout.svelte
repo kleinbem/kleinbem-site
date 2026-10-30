@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
-	import { site } from '$lib/data/site';
-	import AuthNav from '$lib/components/AuthNav.svelte';
+	import { site } from '#lib/data/site.js';
+	import AuthNav from '#lib/components/AuthNav.svelte';
 
 	let { children } = $props();
 

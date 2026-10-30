@@ -2,6 +2,7 @@
 // hosted login page (Phase 3 of the kleinbem-auth -> Authentik migration).
 // There is no login form on kleinbem-site itself anymore: registration,
 // password reset, and social login are all Authentik's job now, not ours.
+import { env } from 'cloudflare:workers';
 import type { RequestHandler } from './$types';
 import {
 	AUTHORIZE_URL,
@@ -11,12 +12,11 @@ import {
 	randomString,
 	redirectUri,
 	safeRedirectPath
-} from '$lib/server/auth';
+} from '#lib/server/auth.js';
 
 export const prerender = false;
 
-export const GET: RequestHandler = async ({ url, cookies, platform }) => {
-	const env = platform!.env;
+export const GET: RequestHandler = async ({ url, cookies }) => {
 	const redirectPath = safeRedirectPath(url.searchParams.get('redirect'));
 
 	const verifier = randomString(64);

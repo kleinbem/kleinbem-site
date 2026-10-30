@@ -1,6 +1,5 @@
-import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { services, faqs } from '$lib/data/services';
+import { services, faqs } from '#lib/data/services.js';
 
 export const prerender = false;
 
@@ -10,6 +9,6 @@ const CORS_HEADERS = {
 	'Cache-Control': 'public, max-age=3600'
 };
 
-export const GET: RequestHandler = async () => json({ services, faqs }, { headers: CORS_HEADERS });
+export const GET: RequestHandler = async () => Response.json({ services, faqs }, { headers: CORS_HEADERS });
 
 export const OPTIONS: RequestHandler = async () => new Response(null, { headers: CORS_HEADERS });

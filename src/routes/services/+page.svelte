@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/data/site';
-	import { services, faqs } from '$lib/data/services';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/data/site.js';
+	import { services, faqs } from '#lib/data/services.js';
 
 	const SITE_ORIGIN = 'https://www.kleinbem.dev';
 

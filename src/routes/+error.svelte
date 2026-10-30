@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/data/site';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/data/site.js';
 
 	const isNotFound = $derived(page.status === 404);
 </script>

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { site } from '$lib/data/site';
-	import { links } from '$lib/data/links';
-	import { skills } from '$lib/data/experience';
+	import { site } from '#lib/data/site.js';
+	import { links } from '#lib/data/links.js';
+	import { skills } from '#lib/data/experience.js';
 
 	interface Props {
 		title?: string;

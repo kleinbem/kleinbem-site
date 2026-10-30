@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/data/site';
-	import { courses } from '$lib/data/courses';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/data/site.js';
+	import { courses } from '#lib/data/courses.js';
 
 	const statusStyle: Record<string, string> = {
 		Available: 'bg-accent-soft text-accent-soft-fg',

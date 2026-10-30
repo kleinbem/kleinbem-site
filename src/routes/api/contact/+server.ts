@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { env } from 'cloudflare:workers';
 import type { RequestHandler } from './$types';
 
 export const prerender = false;
@@ -35,21 +35,19 @@ async function verifyTurnstile(
 	}
 }
 
-export const POST: RequestHandler = async ({ request, platform }) => {
-	const env = platform!.env;
-
+export const POST: RequestHandler = async ({ request }) => {
 	let body: ContactBody;
 	try {
 		body = await request.json();
 	} catch {
-		return json({ error: 'Invalid request body' }, { status: 400 });
+		return Response.json({ error: 'Invalid request body' }, { status: 400 });
 	}
 
 	const { name, email, message, company, turnstileToken } = body;
 
 	if (company) {
 		// Bot filled the honeypot — pretend success, drop it silently.
-		return json({ ok: true });
+		return Response.json({ ok: true });
 	}
 
 	if (env.TURNSTILE_SECRET_KEY) {
@@ -58,12 +56,12 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 			? await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, ip)
 			: false;
 		if (!ok) {
-			return json({ error: 'Verification failed — please try again' }, { status: 400 });
+			return Response.json({ error: 'Verification failed — please try again' }, { status: 400 });
 		}
 	}
 
 	if (!name?.trim() || !message?.trim() || !EMAIL_RE.test(email ?? '')) {
-		return json({ error: 'Missing or invalid fields' }, { status: 400 });
+		return Response.json({ error: 'Missing or invalid fields' }, { status: 400 });
 	}
 
 	const res = await fetch('https://api.resend.com/emails', {
@@ -83,8 +81,8 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 
 	if (!res.ok) {
 		console.error('Resend send failed', res.status, await res.text());
-		return json({ error: 'Failed to send message' }, { status: 502 });
+		return Response.json({ error: 'Failed to send message' }, { status: 502 });
 	}
 
-	return json({ ok: true });
+	return Response.json({ ok: true });
 };
