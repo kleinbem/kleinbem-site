@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LinkEntry } from "$lib/data/links";
+  import type { LinkEntry } from "#lib/data/links.js";
   import { flip } from "svelte/animate";
   import { fade } from "svelte/transition";
 

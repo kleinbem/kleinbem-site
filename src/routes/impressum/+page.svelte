@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/data/site';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/data/site.js';
 </script>
 
 <Seo title={`Legal Notice — ${site.name}`} />

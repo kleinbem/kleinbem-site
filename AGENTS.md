@@ -7,12 +7,12 @@ reaching for a bespoke daemon pattern.
 
 `npm run check` runs `svelte-kit sync` + `svelte-check` (type errors across the
 whole project). `wrangler pages dev .svelte-kit/cloudflare` after `npm run build`
-gives closer production parity (real Workers runtime, real `platform.env` path)
+gives closer production parity (real Workers runtime, real `cloudflare:workers` `env`)
 when testing anything that touches Cloudflare bindings or the auth flow.
 
 ## Svelte 5 & Runes Architecture
 
-This project is built on **Svelte 5** and **SvelteKit 2**. All agents MUST adhere to modern Svelte 5 idioms:
+This project is built on **Svelte 5** and **SvelteKit 3**. All agents MUST adhere to modern Svelte 5 idioms:
 
 - **Reactivity**:
   - Use `$state()` for reactive variables, and `$state.raw()` for large, immutable objects (API responses, static config) to avoid unnecessary deep proxying.
@@ -21,6 +21,7 @@ This project is built on **Svelte 5** and **SvelteKit 2**. All agents MUST adher
 - **Props**: Use `let { ... } = $props()` with TypeScript interface typing. Never use legacy `export let`.
 - **Snippets & Slots**: Use `{#snippet name(...)}` and `{@render name(...)}`. Never use legacy `<slot>`.
 - **Event Handling**: Use standard HTML attributes (e.g. `onclick={handler}`), never legacy directives (`on:click`).
+- **SvelteKit 3**: config lives in the `sveltekit()` plugin options in `vite.config.ts` (there is no `svelte.config.js`). Import library code via `#lib/...` with the file extension (`#lib/data/site.js`), not `$lib`. Server routes read Cloudflare bindings and secrets with `import { env } from 'cloudflare:workers'` (typed via `Cloudflare.Env` in `src/app.d.ts`); `event.platform` no longer exists.
 - **Styling**: Tailwind CSS v4 is used via `@tailwindcss/vite` (`@import "tailwindcss";` in CSS). Do not create or look for a legacy `tailwind.config.js`.
 
 ## AI Tooling & Cross-Agent Workflow

@@ -1,4 +1,4 @@
-import { getPosts } from '$lib/blog';
+import { getPosts } from '#lib/blog/index.js';
 import type { PageServerLoad } from './$types';
 
 export const prerender = true;

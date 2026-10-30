@@ -1,7 +1,6 @@
-import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { site } from '$lib/data/site';
-import { links } from '$lib/data/links';
+import { site } from '#lib/data/site.js';
+import { links } from '#lib/data/links.js';
 
 export const prerender = false;
 
@@ -12,7 +11,7 @@ const CORS_HEADERS = {
 };
 
 export const GET: RequestHandler = async () => {
-	return json(
+	return Response.json(
 		{
 			name: site.name,
 			role: site.role,

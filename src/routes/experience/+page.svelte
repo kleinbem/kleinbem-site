@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/data/site';
-	import { experience, skills } from '$lib/data/experience';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/data/site.js';
+	import { experience, skills } from '#lib/data/experience.js';
 </script>
 
 <Seo

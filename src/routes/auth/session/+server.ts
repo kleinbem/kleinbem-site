@@ -2,25 +2,24 @@
 // signed in. Verifies kleinbem-site's own session cookie (see
 // auth/callback) — never touches Authentik itself, so this stays fast and
 // works even if Authentik is briefly unreachable.
-import { json } from '@sveltejs/kit';
 import { jwtVerify } from 'jose';
+import { env } from 'cloudflare:workers';
 import type { RequestHandler } from './$types';
-import { AUTH_COOKIE_FLAGS, SESSION_COOKIE } from '$lib/server/auth';
+import { AUTH_COOKIE_FLAGS, SESSION_COOKIE } from '#lib/server/auth.js';
 
 export const prerender = false;
 
 const NO_STORE = { 'Cache-Control': 'no-store' };
 
-export const GET: RequestHandler = async ({ cookies, platform }) => {
-	const env = platform!.env;
+export const GET: RequestHandler = async ({ cookies }) => {
 	const cookie = cookies.get(SESSION_COOKIE);
-	if (!cookie) return json({ user: null }, { headers: NO_STORE });
+	if (!cookie) return Response.json({ user: null }, { headers: NO_STORE });
 
 	try {
 		const { payload } = await jwtVerify(cookie, new TextEncoder().encode(env.AUTH_SESSION_SECRET), {
 			algorithms: ['HS256']
 		});
-		return json(
+		return Response.json(
 			{ user: { name: payload.name ?? null, email: payload.email ?? null } },
 			{ headers: NO_STORE }
 		);
@@ -28,6 +27,6 @@ export const GET: RequestHandler = async ({ cookies, platform }) => {
 		// Expired or tampered — treat as signed out and clear it so the
 		// browser stops sending a cookie that will never verify again.
 		cookies.delete(SESSION_COOKIE, AUTH_COOKIE_FLAGS);
-		return json({ user: null }, { headers: NO_STORE });
+		return Response.json({ user: null }, { headers: NO_STORE });
 	}
 };

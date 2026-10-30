@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte';
-	import LinksHub from '$lib/components/LinksHub.svelte';
-	import ContactForm from '$lib/components/ContactForm.svelte';
-	import { site } from '$lib/data/site';
-	import { links } from '$lib/data/links';
-	import { skills } from '$lib/data/experience';
+	import Seo from '#lib/components/Seo.svelte';
+	import LinksHub from '#lib/components/LinksHub.svelte';
+	import ContactForm from '#lib/components/ContactForm.svelte';
+	import { site } from '#lib/data/site.js';
+	import { links } from '#lib/data/links.js';
+	import { skills } from '#lib/data/experience.js';
 </script>
 
 <Seo />

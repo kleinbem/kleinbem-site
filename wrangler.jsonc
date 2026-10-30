@@ -17,7 +17,7 @@
 	// present, Cloudflare stops injecting dashboard/Terraform-configured
 	// plaintext env vars (confirmed live 2026-09-22 — see
 	// nix/infra/cloudflare-pages.tf's header comment) — `vars` here is now
-	// the only thing that reaches `platform.env` for non-secret config. The
+	// the only thing that reaches the Worker `env` for non-secret config. The
 	// real secrets (AUTHENTIK_CLIENT_SECRET, AUTH_SESSION_SECRET,
 	// RESEND_API_KEY, TURNSTILE_SECRET_KEY) are pushed by CI via
 	// `wrangler pages secret put` right before deploy instead — see

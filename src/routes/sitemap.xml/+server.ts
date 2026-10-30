@@ -4,7 +4,7 @@
 // 'noindex'"). auth/* and api/* routes aren't content pages, so they're
 // never candidates either.
 import type { RequestHandler } from './$types';
-import { getPosts } from '$lib/blog';
+import { getPosts } from '#lib/blog/index.js';
 
 export const prerender = true;
 

@@ -1,7 +1,7 @@
 # Copy to .dev.vars (gitignored) for local `vite dev` / `wrangler pages dev`
 # testing. @sveltejs/adapter-cloudflare's built-in platform-proxy support
-# reads this file and injects it as `platform.env` — same mechanism
-# wrangler itself uses, no extra config needed.
+# reads this file and exposes it through `cloudflare:workers`' `env` — same
+# mechanism wrangler itself uses, no extra config needed.
 #
 # AUTHENTIK_CLIENT_ID / AUTHENTIK_CLIENT_SECRET / AUTH_SESSION_SECRET: pull
 # the real values the same way they're currently retrieved for local

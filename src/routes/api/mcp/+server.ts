@@ -5,12 +5,11 @@
 // pure read of static data, so there's no need for session management or
 // the SSE half of the Streamable HTTP transport; every response is a
 // single JSON-RPC object. See https://modelcontextprotocol.io.
-import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { site } from '$lib/data/site';
-import { links } from '$lib/data/links';
-import { services, faqs } from '$lib/data/services';
-import { experience, skills } from '$lib/data/experience';
+import { site } from '#lib/data/site.js';
+import { links } from '#lib/data/links.js';
+import { services, faqs } from '#lib/data/services.js';
+import { experience, skills } from '#lib/data/experience.js';
 
 export const prerender = false;
 
@@ -80,11 +79,11 @@ function callTool(name: string): unknown {
 }
 
 function jsonRpcResult(id: JsonRpcRequest['id'], result: unknown) {
-	return json({ jsonrpc: '2.0', id, result }, { headers: CORS_HEADERS });
+	return Response.json({ jsonrpc: '2.0', id, result }, { headers: CORS_HEADERS });
 }
 
 function jsonRpcError(id: JsonRpcRequest['id'], code: number, message: string) {
-	return json(
+	return Response.json(
 		{ jsonrpc: '2.0', id: id ?? null, error: { code, message } },
 		{
 			status: code === -32700 || code === -32600 ? 400 : 200,
@@ -94,7 +93,7 @@ function jsonRpcError(id: JsonRpcRequest['id'], code: number, message: string) {
 }
 
 export const GET: RequestHandler = async () =>
-	json(
+	Response.json(
 		{
 			name: SERVER_INFO.name,
 			description: 'Remote MCP server for kleinbem.dev — see https://modelcontextprotocol.io',

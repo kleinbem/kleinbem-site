@@ -1,6 +1,5 @@
-import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { experience, skills } from '$lib/data/experience';
+import { experience, skills } from '#lib/data/experience.js';
 
 export const prerender = false;
 
@@ -11,6 +10,6 @@ const CORS_HEADERS = {
 };
 
 export const GET: RequestHandler = async () =>
-	json({ experience, skills }, { headers: CORS_HEADERS });
+	Response.json({ experience, skills }, { headers: CORS_HEADERS });
 
 export const OPTIONS: RequestHandler = async () => new Response(null, { headers: CORS_HEADERS });
