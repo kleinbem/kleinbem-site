@@ -1,11 +1,6 @@
-// Shared helpers for the OIDC/PKCE login flow against Authentik (ported
-// from the old functions/auth/_lib.ts Cloudflare Pages Function — see the
-// route handlers under src/routes/auth/ for how these are used).
-//
-// Single-tenant, fixed-domain IdP — these paths come straight from
-// Authentik's own OIDC discovery document (auth.kleinbem.dev/application/o/
-// kleinbem-site/.well-known/openid-configuration, checked live 2026-09-21),
-// not something that needs to be runtime-configurable.
+// Helpers for the OIDC/PKCE login flow against Authentik (used by src/routes/auth/).
+// Fixed single IdP: these URLs come from Authentik's discovery document
+// (/application/o/kleinbem-site/.well-known/openid-configuration).
 const AUTHENTIK_BASE = 'https://auth.kleinbem.dev';
 const APP_SLUG = 'kleinbem-site';
 
@@ -17,9 +12,7 @@ export interface AuthEnv {
 	AUTHENTIK_CLIENT_ID: string;
 	AUTHENTIK_CLIENT_SECRET: string;
 	AUTH_SESSION_SECRET: string;
-	// Local-dev-only override (see .dev.vars.example) so the OIDC round trip
-	// can be tested against the real Authentik instance without touching
-	// the production redirect_uri. Unset (and thus defaulted) in production.
+	// Local-dev override (see .dev.vars.example); unset in production.
 	AUTH_SITE_ORIGIN?: string;
 }
 
@@ -31,21 +24,14 @@ export function redirectUri(env: AuthEnv): string {
 	return `${siteOrigin(env)}/auth/callback`;
 }
 
-// PKCE state cookie: short-lived, holds the code_verifier + the exact state
-// value the login handler generated, read back by the callback handler to
-// complete the exchange and check for CSRF. HttpOnly (never touched by page
-// JS) and __Host- prefixed (browser-enforced: Secure, Path=/, no Domain
-// attribute — can't be set or overridden by a subdomain or a non-HTTPS
-// response).
+// Short-lived PKCE cookie: code_verifier, state and nonce from login, checked by
+// the callback. __Host- makes the browser enforce Secure, Path=/ and no Domain,
+// so a subdomain or plain-HTTP response can't set or override it.
 export const PKCE_COOKIE = '__Host-oidc_pkce';
-// Session cookie: a JWT (HS256, signed with AUTH_SESSION_SECRET — see
-// session/+server.ts) carrying the signed-in user's claims. Same __Host-
-// hardening.
+// Session cookie: HS256 JWT signed with AUTH_SESSION_SECRET, minted by the callback.
 export const SESSION_COOKIE = '__Host-session';
 
-// Shared cookie attributes for both cookies above. `path`/`domain` aren't
-// optional for a __Host- cookie: path must be "/" and domain must be unset
-// (both enforced by the browser, not just documented here).
+// A __Host- cookie must have path "/" and no domain, or the browser drops it.
 export const AUTH_COOKIE_FLAGS = {
 	path: '/',
 	httpOnly: true,
@@ -70,9 +56,8 @@ export async function pkceChallenge(verifier: string): Promise<string> {
 	return base64url(new Uint8Array(digest));
 }
 
-// Never let ?redirect= be turned into an open redirect — only a path
-// rooted at this site, never an absolute/protocol-relative URL to
-// somewhere else.
+// Only same-site paths, so ?redirect= can't become an open redirect
+// (rejects absolute and protocol-relative URLs).
 export function safeRedirectPath(raw: string | null): string {
 	if (!raw || !raw.startsWith('/') || raw.startsWith('//')) return '/';
 	return raw;

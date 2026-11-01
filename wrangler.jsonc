@@ -1,28 +1,19 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "kleinbem-site",
-	// Pages mode is selected by pages_build_output_dir (not `main` +
-	// assets.binding, which would select Workers mode). This is the
-	// SvelteKit-native replacement for the old hand-rolled `functions/`
-	// tree + static `dist/` split — deployed the same way, via
-	// `wrangler pages deploy <this dir>`, into the same Terraform-managed
-	// Cloudflare Pages project (see nix/infra/cloudflare-pages.tf).
+	// pages_build_output_dir selects Pages mode (`main` + assets.binding would be
+	// Workers). CI deploys it with `wrangler pages deploy` into the Pages project
+	// from nix/infra/cloudflare-pages.tf.
 	"pages_build_output_dir": ".svelte-kit/cloudflare",
 	"compatibility_date": "2026-09-22",
 	// AsyncLocalStorage polyfill SvelteKit's server runtime needs. If a
 	// deploy throws async_local_storage_unavailable, switch to
 	// "nodejs_compat" instead.
 	"compatibility_flags": ["nodejs_als"],
-	// Non-secret only. Once a Pages project has been deployed with this file
-	// present, Cloudflare stops injecting dashboard/Terraform-configured
-	// plaintext env vars (confirmed live 2026-09-22 — see
-	// nix/infra/cloudflare-pages.tf's header comment) — `vars` here is now
-	// the only thing that reaches the Worker `env` for non-secret config. The
-	// real secrets (AUTHENTIK_CLIENT_SECRET, AUTH_SESSION_SECRET,
-	// RESEND_API_KEY, TURNSTILE_SECRET_KEY) are pushed by CI via
-	// `wrangler pages secret put` right before deploy instead — see
-	// .github/workflows/ci.yaml. client_id isn't sensitive: it's already
-	// visible in the outgoing OAuth redirect URL to Authentik.
+	// Non-secret only. With this file present Cloudflare ignores dashboard/Terraform
+	// env vars, so `vars` is the only way non-secret config reaches `env`. Secrets are
+	// pushed by CI with `wrangler pages secret put` (.github/workflows/ci.yaml).
+	// client_id isn't secret: it's in the authorize redirect URL anyway.
 	"vars": {
 		"AUTHENTIK_CLIENT_ID": "kleinbem-site"
 	}

@@ -1,8 +1,5 @@
-// Replaces @astrojs/sitemap. login-error is deliberately excluded — it's
-// noindex (see src/routes/login-error), and listing a noindexed page here
-// is a contradictory signal Search Console flags ("Submitted URL marked
-// 'noindex'"). auth/* and api/* routes aren't content pages, so they're
-// never candidates either.
+// login-error is noindex, and Search Console flags noindexed pages in a sitemap
+// ("Submitted URL marked 'noindex'"), so it stays out. auth/* and api/* aren't pages.
 import type { RequestHandler } from './$types';
 import { getPosts } from '#lib/blog/index.js';
 
