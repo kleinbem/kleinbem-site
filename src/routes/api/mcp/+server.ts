@@ -1,10 +1,6 @@
-// Minimal remote MCP (Model Context Protocol) server exposing this site's
-// public profile data as read-only tools, for AI agents/assistants that
-// speak MCP instead of scraping HTML. Deliberately dependency-free (no
-// @modelcontextprotocol/sdk) and fully stateless — every tool here is a
-// pure read of static data, so there's no need for session management or
-// the SSE half of the Streamable HTTP transport; every response is a
-// single JSON-RPC object. See https://modelcontextprotocol.io.
+// Minimal remote MCP server exposing the site's public profile data as read-only tools.
+// No SDK and stateless: every tool reads static data, so there are no sessions and
+// no SSE stream: one JSON-RPC object per request, a bare 202 for notifications.
 import type { RequestHandler } from './$types';
 import { site } from '#lib/data/site.js';
 import { links } from '#lib/data/links.js';

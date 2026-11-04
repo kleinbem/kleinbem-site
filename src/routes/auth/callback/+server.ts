@@ -1,12 +1,6 @@
-// Authentik redirects here after the visitor signs in on its own hosted
-// login page. Exchanges the authorization code for tokens server-side (this
-// runs as a Cloudflare Pages Function under the hood, so the exchange never
-// touches page JS), verifies the ID token, and mints kleinbem-site's own
-// longer-lived session cookie from it. See $lib/server/auth for why this is
-// a separate cookie rather than the raw ID token: the ID token's own
-// lifetime is short (minutes) and re-authenticating that often would be a
-// real UX downgrade from the "stay signed in 30 days" behavior kleinbem-auth
-// had.
+// Authentik redirects here after sign-in. Exchanges the code server-side, verifies
+// the ID token and mints our own 30-day session cookie: the ID token itself
+// expires within minutes.
 import { SignJWT, jwtVerify } from 'jose';
 import { env } from 'cloudflare:workers';
 import type { RequestHandler } from './$types';
@@ -75,9 +69,8 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	const tokens = (await tokenRes.json()) as { id_token?: string };
 	if (!tokens.id_token) return errorRedirect('no_id_token_returned');
 
-	// Authentik signs this provider's ID tokens HS256 (symmetric) — the
-	// client_secret IS the verification key. Algorithm pinned explicitly so
-	// a forged token can't pick its own (e.g. "none").
+	// Authentik signs this provider's ID tokens HS256 with the client_secret.
+	// The algorithm is pinned so a forged token can't pick its own (e.g. "none").
 	let claims: {
 		sub: string;
 		email?: string;
@@ -108,13 +101,8 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		.setExpirationTime(`${SESSION_MAX_AGE_SECONDS}s`)
 		.sign(new TextEncoder().encode(env.AUTH_SESSION_SECRET));
 
-	// Two independent cookie writes on the same response — clearing the PKCE
-	// cookie and setting the session cookie — must both land as separate
-	// Set-Cookie headers. SvelteKit's cookies API applies every queued
-	// write to the final response regardless of how that response was
-	// constructed, so this doesn't need the manual array-of-header-tuples
-	// the old hand-rolled Response needed. Verified with `curl -v` (see the
-	// migration plan's testing section).
+	// SvelteKit adds both queued cookie writes as separate Set-Cookie headers,
+	// even on a hand-built Response.
 	cookies.delete(PKCE_COOKIE, AUTH_COOKIE_FLAGS);
 	cookies.set(SESSION_COOKIE, sessionJwt, { ...AUTH_COOKIE_FLAGS, maxAge: SESSION_MAX_AGE_SECONDS });
 

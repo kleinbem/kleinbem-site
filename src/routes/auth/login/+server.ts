@@ -1,7 +1,5 @@
-// Entry point for "Sign in" — immediately redirects to Authentik's own
-// hosted login page (Phase 3 of the kleinbem-auth -> Authentik migration).
-// There is no login form on kleinbem-site itself anymore: registration,
-// password reset, and social login are all Authentik's job now, not ours.
+// "Sign in": redirects straight to Authentik's hosted login. Registration,
+// password reset and social login all live there.
 import { env } from 'cloudflare:workers';
 import type { RequestHandler } from './$types';
 import {
@@ -22,22 +20,17 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	const verifier = randomString(64);
 	const challenge = await pkceChallenge(verifier);
 	const csrf = randomString(32);
-	// OIDC's own replay defense for the ID token — checked against
-	// claims.nonce in the callback handler. Sent to Authentik (below) but,
-	// unlike state, never echoed back in a URL — kept in the cookie only,
-	// matching the OIDC Core spec's expectation that it isn't
-	// attacker-observable ahead of the id_token being minted.
+	// ID token replay defense, checked against claims.nonce in the callback.
+	// Unlike state it never comes back in a URL; we keep it only in the cookie.
 	const nonce = randomString(32);
-	// Carries the CSRF nonce and the post-login destination through the
-	// round trip to Authentik and back — the callback handler checks the
-	// incoming `state` against this same cookie's value.
+	// Carries the CSRF token and post-login path; the callback compares the
+	// returned state with the copy in the cookie.
 	const state = JSON.stringify({ csrf, redirectPath });
 	// code_verifier travels only in this cookie, never in a URL — the
 	// authorize request only gets the (one-way) challenge.
 	const pkceCookieValue = JSON.stringify({ verifier, state, nonce });
 
-	// 10 minutes — plenty to complete a login, short enough that a stale,
-	// unused verifier doesn't linger.
+	// 10 minutes: enough to log in, short enough that an unused verifier expires.
 	cookies.set(PKCE_COOKIE, pkceCookieValue, { ...AUTH_COOKIE_FLAGS, maxAge: 600 });
 
 	const authorize = new URL(AUTHORIZE_URL);
