@@ -11,8 +11,8 @@
 	// "nodejs_compat" instead.
 	"compatibility_flags": ["nodejs_als"],
 	// Non-secret only. With this file present Cloudflare ignores dashboard/Terraform
-	// env vars, so `vars` is the only way non-secret config reaches `env`. Secrets are
-	// pushed by CI with `wrangler pages secret put` (.github/workflows/ci.yaml).
+	// env vars, so `vars` is the only way non-secret config reaches `env`. CI pushes
+	// the secrets with `wrangler pages secret put` (see ci.yaml for which ones).
 	// client_id isn't secret: it's in the authorize redirect URL anyway.
 	"vars": {
 		"AUTHENTIK_CLIENT_ID": "kleinbem-site"

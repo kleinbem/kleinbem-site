@@ -1,6 +1,6 @@
 // Minimal remote MCP server exposing the site's public profile data as read-only tools.
 // No SDK and stateless: every tool reads static data, so there are no sessions and
-// no SSE stream, just one JSON-RPC object per response.
+// no SSE stream: one JSON-RPC object per request, a bare 202 for notifications.
 import type { RequestHandler } from './$types';
 import { site } from '#lib/data/site.js';
 import { links } from '#lib/data/links.js';
