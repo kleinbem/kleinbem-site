@@ -47,13 +47,11 @@ jobs:
           printf '%s' "$TURNSTILE_SECRET_KEY" | npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name=kleinbem-site
           # No RESEND_API_KEY yet; the contact form returns a JSON error without it.
 
-      # Deploys to the live www.kleinbem.dev Pages project, main only.
+      # Deploys to the live www.kleinbem.dev Pages project, main only. No
+      # wranglerVersion: unset, the action uses the lockfile's wrangler.
       - if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # The action's default wrangler (3.x) peer-conflicts with
-          # @cloudflare/workers-types v5.
-          wranglerVersion: "4"
           command: pages deploy .svelte-kit/cloudflare --project-name=kleinbem-site --branch=main
