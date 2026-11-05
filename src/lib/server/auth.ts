@@ -56,9 +56,19 @@ export async function pkceChallenge(verifier: string): Promise<string> {
 	return base64url(new Uint8Array(digest));
 }
 
-// Only same-site paths, so ?redirect= can't become an open redirect
-// (rejects absolute and protocol-relative URLs).
+// Only a path on this site may come out of ?redirect=. Checking the prefix isn't
+// enough: URL parsing turns `/\host` and `/\t/host` into `//host`, so resolve it
+// and keep it only if the origin stays put.
 export function safeRedirectPath(raw: string | null): string {
-	if (!raw || !raw.startsWith('/') || raw.startsWith('//')) return '/';
-	return raw;
+	if (!raw || !raw.startsWith('/')) return '/';
+	const base = 'https://site.invalid';
+	let url: URL;
+	try {
+		url = new URL(raw, base);
+	} catch {
+		return '/';
+	}
+	// The normalised path can still start with `//` (`/..//host`).
+	if (url.origin !== base || url.pathname.startsWith('//')) return '/';
+	return url.pathname + url.search + url.hash;
 }

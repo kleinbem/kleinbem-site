@@ -11,6 +11,7 @@ import {
 	SESSION_COOKIE,
 	TOKEN_URL,
 	redirectUri,
+	safeRedirectPath,
 	siteOrigin
 } from '#lib/server/auth.js';
 
@@ -45,7 +46,9 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		if (expectedState !== incomingState) return errorRedirect('state_mismatch');
 		verifier = v;
 		expectedNonce = nonce;
-		redirectPath = (JSON.parse(expectedState) as { redirectPath: string }).redirectPath;
+		redirectPath = safeRedirectPath(
+			(JSON.parse(expectedState) as { redirectPath: string }).redirectPath
+		);
 	} catch {
 		return errorRedirect('malformed_pkce_cookie');
 	}
