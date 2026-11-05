@@ -27,20 +27,15 @@
 	<meta name="color-scheme" content="light" />
 
 	<!--
-		Cloudflare Web Analytics (privacy-preserving, cookieless — see
-		nix/infra/cloudflare-analytics.tf for the Terraform-managed site
-		record). auto_install=true is supposed to inject this at the edge
-		with zero code changes, but Cloudflare Pages doesn't reliably honor
-		that zone-level mechanism — verified live: the beacon never appeared
-		in production responses. Adding it directly here is the documented
-		workaround and the more robust choice regardless. The token below
-		just names the site; it's not a secret, and it's designed to ship
-		in page source.
+		Cloudflare Web Analytics (nix/infra/cloudflare-analytics.tf). Pages doesn't
+		honor auto_install, so the beacon is added here (no-link: Cloudflare has no
+		public tracker for Pages/Web Analytics). The token only names the site and
+		ships in every page's HTML: it is not a secret.
 	-->
 	<script
 		defer
 		src="https://static.cloudflareinsights.com/beacon.min.js"
-		data-cf-beacon={JSON.stringify({ token: '5d8eac4b56b745be97210a1ec11a7ebd' })}
+		data-cf-beacon={JSON.stringify({ token: '5d8eac4b56b745be97210a1ec11a7ebd' }) /* gitleaks:allow public beacon token, served in page HTML */}
 	></script>
 </svelte:head>
 
