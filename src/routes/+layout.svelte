@@ -28,8 +28,9 @@
 
 	<!--
 		Cloudflare Web Analytics (nix/infra/cloudflare-analytics.tf). Pages doesn't
-		honor auto_install, so the beacon is added here. The token only names the
-		site and ships in every page's HTML: it is not a secret.
+		honor auto_install, so the beacon is added here (no-link: Cloudflare has no
+		public tracker for Pages/Web Analytics). The token only names the site and
+		ships in every page's HTML: it is not a secret.
 	-->
 	<script
 		defer
