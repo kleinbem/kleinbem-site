@@ -8,6 +8,7 @@
 	let { children } = $props();
 
 	// The layout survives client-side navigation, so the mobile menu would stay open.
+	// Link clicks close it too: same-page #fragment links don't fire afterNavigate.
 	let menuOpen = $state(false);
 	afterNavigate(() => {
 		menuOpen = false;
@@ -105,6 +106,7 @@
 							<a
 								href={item.href}
 								aria-current={isActive(item.href) ? 'page' : undefined}
+								onclick={() => (menuOpen = false)}
 								class="block rounded-lg px-3 py-2 text-sm transition-colors {isActive(item.href)
 									? 'bg-accent-soft font-medium text-accent-soft-fg'
 									: 'text-muted hover:bg-surface hover:text-heading'}"
