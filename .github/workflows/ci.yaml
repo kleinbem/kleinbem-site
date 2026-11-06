@@ -45,7 +45,8 @@ jobs:
           printf '%s' "$AUTHENTIK_CLIENT_SECRET" | npx wrangler pages secret put AUTHENTIK_CLIENT_SECRET --project-name=kleinbem-site
           printf '%s' "$AUTH_SESSION_SECRET" | npx wrangler pages secret put AUTH_SESSION_SECRET --project-name=kleinbem-site
           printf '%s' "$TURNSTILE_SECRET_KEY" | npx wrangler pages secret put TURNSTILE_SECRET_KEY --project-name=kleinbem-site
-          # No RESEND_API_KEY yet; the contact form returns a JSON error without it.
+          # No RESEND_API_KEY yet, so the contact form stays hidden. Adding it here
+          # (and to the repo secrets) shows the form from the next deploy on.
 
       # Deploys to the live www.kleinbem.dev Pages project, main only. No
       # wranglerVersion: unset, the action uses the lockfile's wrangler.

@@ -1,4 +1,5 @@
-// Placeholder job history — replace with your real roles.
+// Empty until real roles are written up: the page, /api/experience and MCP
+// get_experience all read this list.
 export type Role = {
   title: string;
   org: string;
@@ -7,28 +8,7 @@ export type Role = {
   highlights: string[];
 };
 
-export const experience: Role[] = [
-  {
-    title: "Independent Consultant",
-    org: "Self-employed",
-    period: "20XX — Present",
-    summary: "Infrastructure automation and platform engineering for small and mid-size teams.",
-    highlights: [
-      "Replace this with a real engagement summary",
-      "Add measurable outcomes (uptime, deploy time, cost)",
-    ],
-  },
-  {
-    title: "Your previous role",
-    org: "Company name",
-    period: "20XX — 20XX",
-    summary: "One-line description of what you owned.",
-    highlights: [
-      "Key achievement #1",
-      "Key achievement #2",
-    ],
-  },
-];
+export const experience: Role[] = [];
 
 export const skills: string[] = [
   "Linux / NixOS",

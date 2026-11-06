@@ -50,7 +50,16 @@ async function verifyTurnstile(
 	}
 }
 
+// The home page asks this before showing the form. Pages reads secrets at deploy
+// time: to enable it, add RESEND_API_KEY to ci.yaml's secret push, then deploy.
+export const GET: RequestHandler = async () =>
+	Response.json({ enabled: Boolean(env.RESEND_API_KEY) }, { headers: { 'Cache-Control': 'no-store' } });
+
 export const POST: RequestHandler = async ({ request }) => {
+	if (!env.RESEND_API_KEY) {
+		return Response.json({ error: 'Contact form is not available' }, { status: 503 });
+	}
+
 	let body: ContactBody | null;
 	try {
 		body = parseBody(await request.json());

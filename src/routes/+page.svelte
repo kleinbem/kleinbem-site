@@ -5,6 +5,18 @@
 	import { site } from '#lib/data/site.js';
 	import { links } from '#lib/data/links.js';
 	import { skills } from '#lib/data/experience.js';
+	import { onMount } from 'svelte';
+
+	// The page is prerendered, so whether the form can send is asked at runtime.
+	let formEnabled = $state(false);
+	onMount(async () => {
+		try {
+			const res = await fetch('/api/contact');
+			formEnabled = res.ok && ((await res.json()) as { enabled?: boolean }).enabled === true;
+		} catch (err) {
+			console.error('contact form status check failed', err);
+		}
+	});
 </script>
 
 <Seo />
@@ -57,7 +69,9 @@
 <section id="contact" class="mx-auto max-w-3xl scroll-mt-20 border-t border-line px-6 py-12">
 	<h2 class="mb-5 font-mono text-xs uppercase tracking-[0.2em] text-muted">Contact</h2>
 	<p class="max-w-2xl text-[15px] leading-relaxed text-muted">
-		Interested in working together, or hiring? Send a message below, or reach out directly at
+		Interested in working together, or hiring? {formEnabled
+			? 'Send a message below, or reach out directly at'
+			: 'Reach out directly at'}
 		<a
 			href={`mailto:${site.email}`}
 			class="font-medium text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
@@ -65,7 +79,9 @@
 			{site.email}</a
 		>.
 	</p>
-	<div class="mt-6 max-w-md">
-		<ContactForm email={site.email} />
-	</div>
+	{#if formEnabled}
+		<div class="mt-6 max-w-md">
+			<ContactForm email={site.email} />
+		</div>
+	{/if}
 </section>

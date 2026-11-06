@@ -17,7 +17,6 @@
 	const nav = [
 		{ href: '/', label: 'About' },
 		{ href: '/services', label: 'Services' },
-		{ href: '/courses', label: 'Courses' },
 		{ href: '/blog', label: 'Blog' },
 		{ href: '/experience', label: 'Experience' },
 		{ href: '/#contact', label: 'Contact' }
@@ -136,7 +135,6 @@
 			<p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
 			<nav class="flex gap-4">
 				<a href="/services" class="hover:text-heading">Services</a>
-				<a href="/courses" class="hover:text-heading">Courses</a>
 				<a href="/blog" class="hover:text-heading">Blog</a>
 				<a href="/experience" class="hover:text-heading">Experience</a>
 				<a href="/privacy" class="hover:text-heading">Privacy</a>
