@@ -38,7 +38,8 @@ async function verifyTurnstile(
 		const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ secret, response: token, ...(ip ? { remoteip: ip } : {}) })
+			body: JSON.stringify({ secret, response: token, ...(ip ? { remoteip: ip } : {}) }),
+			signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS)
 		});
 		if (!res.ok) return false;
 		const data = (await res.json()) as { success?: boolean };

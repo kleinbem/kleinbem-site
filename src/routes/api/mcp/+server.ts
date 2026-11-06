@@ -110,7 +110,13 @@ export const POST: RequestHandler = async ({ request }) => {
 		return jsonRpcError(null, -32700, 'Parse error');
 	}
 	// null, arrays (batches aren't supported) and primitives are valid JSON but not a request.
-	if (typeof msg !== 'object' || msg === null || Array.isArray(msg)) {
+	if (
+		typeof msg !== 'object' ||
+		msg === null ||
+		Array.isArray(msg) ||
+		(msg as { jsonrpc?: unknown }).jsonrpc !== '2.0' ||
+		typeof (msg as { method?: unknown }).method !== 'string'
+	) {
 		return jsonRpcError(null, -32600, 'Invalid Request');
 	}
 
