@@ -1,10 +1,17 @@
 <script lang="ts">
 	import '../app.css';
+	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { site } from '#lib/data/site.js';
 	import AuthNav from '#lib/components/AuthNav.svelte';
 
 	let { children } = $props();
+
+	// The layout survives client-side navigation, so the mobile menu would stay open.
+	let menuOpen = $state(false);
+	afterNavigate(() => {
+		menuOpen = false;
+	});
 
 	const nav = [
 		{ href: '/', label: 'About' },
@@ -79,7 +86,7 @@
 
 				<!-- <640px: collapse into a native <details> disclosure — no JS
 				     needed for the toggle itself. -->
-				<details class="relative sm:hidden">
+				<details class="relative sm:hidden" bind:open={menuOpen}>
 					<summary
 						class="grid h-10 w-10 list-none place-items-center rounded-full text-muted transition-colors hover:bg-surface-high hover:text-heading [&::-webkit-details-marker]:hidden"
 						aria-label="Menu"
