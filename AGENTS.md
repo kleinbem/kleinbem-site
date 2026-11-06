@@ -37,9 +37,12 @@ This repo includes universal skills in `.agents/skills/` (also symlinked to `.cl
 - **CLI agents without native MCP (Hermes, Pi / oh-my-pi)**:
   - Run the CLI equivalent via bash:
     ```bash
-    npx @sveltejs/mcp svelte-autofixer src/lib/Component.svelte
-    npx @sveltejs/mcp get-documentation "$state,$derived"
+    npx @sveltejs/mcp@0.1.27 svelte-autofixer src/lib/Component.svelte
+    npx @sveltejs/mcp@0.1.27 get-documentation '$state,$derived'
     ```
+- `@sveltejs/mcp` is pinned to one exact version here, in `.mcp.json`,
+  `.agents/skills/svelte-code-writer/SKILL.md` and `.claude/agents/svelte-file-editor.md`.
+  Bump all four together.
 
 ## Documentation
 
