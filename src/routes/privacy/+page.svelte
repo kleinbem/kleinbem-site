@@ -2,7 +2,7 @@
 	import Seo from '#lib/components/Seo.svelte';
 	import { site } from '#lib/data/site.js';
 
-	const updated = '26 September 2026';
+	const updated = '6 November 2026';
 </script>
 
 <Seo
@@ -18,7 +18,8 @@
 		Traffic is measured only in aggregate via Cloudflare Web Analytics (cookieless, no
 		client-side storage, no personal data — see &ldquo;Third parties&rdquo; below). The only
 		processing that identifies you is the optional <strong class="text-fg">sign-in</strong>
-		feature described below, plus standard web-server and CDN access logs.
+		and the <strong class="text-fg">contact form</strong>, both described below, plus standard
+		web-server and CDN access logs.
 	</p>
 	<p class="mt-2 text-xs text-muted">Last updated: {updated}</p>
 
@@ -55,11 +56,12 @@
 			creates no password at all.
 		</li>
 		<li>
-			On <strong class="font-medium">kleinbem.dev</strong>, once you've signed in: a single cookie
-			containing only your <strong class="font-medium">name</strong> and
-			<strong class="font-medium">email address</strong>, cryptographically signed so it can't be
-			altered. No password, and no data from auth.kleinbem.dev beyond those two fields, ever
-			reaches kleinbem.dev.
+			On <strong class="font-medium">kleinbem.dev</strong>, once you've signed in: a session cookie
+			containing your <strong class="font-medium">name</strong>,
+			<strong class="font-medium">email address</strong> and the random account identifier
+			auth.kleinbem.dev assigned you, plus when the session was issued and when it expires. It is
+			cryptographically signed so it can't be altered. No password, and nothing else from
+			auth.kleinbem.dev, ever reaches kleinbem.dev.
 		</li>
 	</ul>
 
@@ -75,16 +77,36 @@
 
 	<h3 class="mt-8 text-[13px] font-semibold uppercase tracking-wider text-muted">Cookies</h3>
 	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
-		A single session cookie is set on <code class="rounded bg-surface px-1 py-0.5 text-[13px]"
-			>kleinbem.dev</code
-		> <em>only after you sign in</em>, valid for up to 30 days, and removed when you sign out.
-		There are no advertising or tracking cookies, and no cookies at all until you sign in.
+		<code class="rounded bg-surface px-1 py-0.5 text-[13px]">kleinbem.dev</code> sets cookies
+		<em>only when you click &ldquo;sign in&rdquo;</em>:
 	</p>
+	<ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
+		<li>
+			A short-lived sign-in cookie, set when you start signing in. It holds only random values
+			that tie the reply from auth.kleinbem.dev to your browser, expires after ten minutes, and
+			is deleted as soon as sign-in finishes.
+		</li>
+		<li>
+			The session cookie described above, set once you're signed in, valid for up to 30 days,
+			and removed when you sign out.
+		</li>
+	</ul>
 	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
-		This cookie doesn't need a consent banner: it's strictly necessary for a feature you
-		explicitly asked for by clicking &ldquo;sign in&rdquo;, which is exempt from
-		cookie-consent requirements under the ePrivacy Directive (Art. 5(3)). It's not set for
-		anyone who doesn't sign in, and it's never used for advertising, tracking, or analytics.
+		There are no advertising or tracking cookies, and no cookies at all unless you start
+		signing in. These cookies don't need a consent banner: they're strictly necessary for a
+		feature you explicitly asked for by clicking &ldquo;sign in&rdquo;, which is exempt from
+		cookie-consent requirements under the ePrivacy Directive (Art. 5(3)). They're never used
+		for advertising, tracking, or analytics.
+	</p>
+
+	<h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Contact form</h2>
+	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+		If you use the contact form, the <strong class="font-medium">name</strong>,
+		<strong class="font-medium">email address</strong> and
+		<strong class="font-medium">message</strong> you enter are sent as an email to {site.name}'s
+		mailbox, through the email delivery service Resend (see &ldquo;Third parties&rdquo; below).
+		They're used only to read and answer your message. kleinbem.dev itself stores nothing from
+		the form.
 	</p>
 
 	<h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Third parties</h2>
@@ -117,6 +139,18 @@
 				rel="noopener"
 				class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
 				>Cloudflare's Turnstile privacy policy</a
+			>.
+		</dd>
+
+		<dt class="font-mono text-xs uppercase tracking-wider text-muted">Resend</dt>
+		<dd class="text-fg">
+			Delivers contact-form messages as email. It receives the name, email address and message
+			you submit, and nothing else from this site — see
+			<a
+				href="https://resend.com/legal/privacy-policy"
+				rel="noopener"
+				class="text-heading underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
+				>Resend's privacy policy</a
 			>.
 		</dd>
 	</dl>
