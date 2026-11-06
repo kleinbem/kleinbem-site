@@ -50,8 +50,8 @@ async function verifyTurnstile(
 	}
 }
 
-// The home page asks this before showing the form, so the form appears once
-// RESEND_API_KEY is configured and stays hidden until then.
+// The home page asks this before showing the form. Pages reads secrets at deploy
+// time: to enable it, add RESEND_API_KEY to ci.yaml's secret push, then deploy.
 export const GET: RequestHandler = async () =>
 	Response.json({ enabled: Boolean(env.RESEND_API_KEY) }, { headers: { 'Cache-Control': 'no-store' } });
 
