@@ -10,15 +10,16 @@
 	};
 </script>
 
-<Seo title={`Courses — ${site.name}`} />
+<Seo title={`Courses — ${site.name}`} noindex={courses.length === 0} />
 
 <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
 	<h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Courses</h1>
 	<p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
-		Structured, practical courses on infrastructure automation and platform engineering. Content
-		is still being written — the list below is a placeholder for what's coming.
+		Structured, practical courses on infrastructure automation and platform engineering. The
+		first course is in the works.
 	</p>
 
+	{#if courses.length > 0}
 	<div class="mt-10 grid gap-4">
 		{#each courses as course}
 			<article class="rounded-xl bg-surface p-6 shadow-elevation-1 transition-shadow hover:shadow-elevation-2">
@@ -32,6 +33,7 @@
 			</article>
 		{/each}
 	</div>
+	{/if}
 
 	<div class="mt-12 rounded-xl bg-accent-soft p-6">
 		<p class="text-[15px] text-accent-soft-fg">Want to know when a course ships?</p>

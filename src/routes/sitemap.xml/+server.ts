@@ -1,4 +1,4 @@
-// login-error is noindex, and Search Console flags noindexed pages in a sitemap
+// login-error and courses (until a course exists) are noindex, and Search Console flags noindexed pages in a sitemap
 // ("Submitted URL marked 'noindex'"), so it stays out. auth/* and api/* aren't pages.
 import type { RequestHandler } from './$types';
 import { getPosts } from '#lib/blog/index.js';
@@ -10,7 +10,6 @@ const SITE_ORIGIN = 'https://www.kleinbem.dev';
 const STATIC_PATHS = [
 	'/',
 	'/services',
-	'/courses',
 	'/experience',
 	'/blog',
 	'/impressum',

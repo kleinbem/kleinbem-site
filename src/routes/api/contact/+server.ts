@@ -50,7 +50,16 @@ async function verifyTurnstile(
 	}
 }
 
+// The home page asks this before showing the form, so the form appears once
+// RESEND_API_KEY is configured and stays hidden until then.
+export const GET: RequestHandler = async () =>
+	Response.json({ enabled: Boolean(env.RESEND_API_KEY) }, { headers: { 'Cache-Control': 'no-store' } });
+
 export const POST: RequestHandler = async ({ request }) => {
+	if (!env.RESEND_API_KEY) {
+		return Response.json({ error: 'Contact form is not available' }, { status: 503 });
+	}
+
 	let body: ContactBody | null;
 	try {
 		body = parseBody(await request.json());

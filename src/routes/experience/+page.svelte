@@ -6,14 +6,13 @@
 
 <Seo
 	title={`Experience — ${site.name}`}
-	description={`A decade of infrastructure and platform engineering experience — roles, highlights, and skills for ${site.name}.`}
+	description={`Infrastructure and platform engineering skills of ${site.name}.`}
 />
 
 <section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
 	<h1 class="text-3xl font-semibold tracking-tight text-heading sm:text-4xl">Experience</h1>
 	<p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
-		A decade of building and running infrastructure — the highlights below, with a focus on
-		measurable outcomes.
+		The areas I work in. A detailed role history is coming.
 	</p>
 
 	<ul class="mt-8 flex flex-wrap gap-2">
@@ -24,6 +23,7 @@
 		{/each}
 	</ul>
 
+	{#if experience.length > 0}
 	<ol class="mt-12 space-y-10">
 		{#each experience as role}
 			<li class="relative border-l border-line pl-6">
@@ -45,4 +45,5 @@
 			</li>
 		{/each}
 	</ol>
+	{/if}
 </section>
