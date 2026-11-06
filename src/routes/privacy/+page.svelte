@@ -108,6 +108,13 @@
 		They're used only to read and answer your message. kleinbem.dev itself stores nothing from
 		the form.
 	</p>
+	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
+		The legal basis is my legitimate interest in answering enquiries (GDPR Art. 6(1)(f)) or,
+		for business enquiries, taking steps at your request before entering into a contract
+		(Art. 6(1)(b)). Messages are kept in my mailbox as long as needed to answer and follow up,
+		at most 2 years, and deleted earlier on request. Resend keeps its own copy of sent emails
+		and their logs for 30 days.
+	</p>
 
 	<h2 class="mt-14 text-sm font-semibold uppercase tracking-wide text-muted">Third parties</h2>
 	<dl class="mt-4 grid gap-x-8 gap-y-5 text-sm sm:grid-cols-[10rem_1fr]">
@@ -145,7 +152,10 @@
 		<dt class="font-mono text-xs uppercase tracking-wider text-muted">Resend</dt>
 		<dd class="text-fg">
 			Delivers contact-form messages as email. It receives the name, email address and message
-			you submit, and nothing else from this site — see
+			you submit, and nothing else from this site. Resend stores this data in the United
+			States; the transfer is covered by the EU Standard Contractual Clauses in Resend's data
+			processing agreement and by Resend's certification under the EU-U.S. Data Privacy
+			Framework. See
 			<a
 				href="https://resend.com/legal/privacy-policy"
 				rel="noopener"
@@ -196,7 +206,8 @@
 	</h2>
 	<p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-fg">
 		Account data is kept until you ask for it to be deleted; expired sessions are removed
-		automatically. To delete your account and associated data, or to exercise your rights of
+		automatically. Contact-form messages are kept as described under &ldquo;Contact
+		form&rdquo; above. To delete your account and associated data, or to exercise your rights of
 		access, rectification, erasure, portability, or objection under the GDPR, email
 		<a
 			href={`mailto:${site.email}`}
