@@ -1,23 +1,32 @@
 # kleinbem.dev
 
-Personal site — Astro + Svelte + Tailwind, served from Cloudflare Pages
-(`www.kleinbem.dev`; the apex redirects to it — see `nix/infra/cloudflare-pages.tf`
-in the fleet repo). CI (`.github/workflows/ci.yaml`) builds and deploys it.
+Personal site: SvelteKit + Svelte 5 + Tailwind v4, served from Cloudflare Pages
+(`www.kleinbem.dev`; the apex redirects to it, see `nix/infra/cloudflare-pages.tf`
+in the fleet repo). CI (`.github/workflows/ci.yaml`) builds it and deploys every
+push to `main`.
 
 ```
-src/pages/
-├── index.astro        # landing page (LinksHub, ContactForm)
-├── blog/               # content collections
-├── courses.astro       # placeholder catalogue — see src/data/courses.ts
-├── experience.astro
-├── services.astro
-├── impressum.astro
-└── privacy.astro
+src/
+├── routes/
+│   ├── +page.svelte     # landing page (LinksHub, ContactForm)
+│   ├── blog/            # posts from src/lib/blog/posts/*.md
+│   ├── courses/         # placeholder catalogue, see src/lib/data/courses.ts
+│   ├── experience/
+│   ├── services/
+│   ├── impressum/
+│   ├── privacy/
+│   ├── api/             # contact form, JSON profile endpoints, MCP server
+│   └── auth/            # visitor login
+├── lib/
+│   ├── components/
+│   ├── data/            # site content (profile, links, services, experience)
+│   └── server/auth.ts
+static/                  # served as-is (robots.txt, llms.txt, icons)
+_headers                 # Cloudflare Pages headers, copied in by the adapter
 ```
 
-Visitor login (`AuthNav` + `functions/auth/*`) is OIDC/PKCE against the
-fleet's Authentik instance (`auth.kleinbem.dev`) — see `functions/auth/_lib.ts`.
-This replaced the old `kleinbem-auth` service (decommissioned 2026-09-21).
+Visitor login (`AuthNav` + `src/routes/auth/*`) is OIDC/PKCE against the
+fleet's Authentik instance (`auth.kleinbem.dev`), see `src/lib/server/auth.ts`.
 
 See `AGENTS.md`/`CLAUDE.md` for the dev workflow and
-[docs.astro.build](https://docs.astro.build) for framework reference.
+[svelte.dev/docs/kit](https://svelte.dev/docs/kit) for framework reference.
