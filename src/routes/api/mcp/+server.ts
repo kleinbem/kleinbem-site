@@ -74,6 +74,15 @@ function callTool(name: string): unknown {
 	}
 }
 
+// null, arrays (batches aren't supported) and primitives are valid JSON but not a request.
+function isJsonRpcRequest(msg: unknown): msg is JsonRpcRequest {
+	if (typeof msg !== 'object' || msg === null || Array.isArray(msg)) return false;
+	const { jsonrpc, method, id, params } = msg as Record<string, unknown>;
+	const idOk = id === undefined || id === null || typeof id === 'string' || typeof id === 'number';
+	const paramsOk = params === undefined || (typeof params === 'object' && params !== null);
+	return jsonrpc === '2.0' && typeof method === 'string' && idOk && paramsOk;
+}
+
 function jsonRpcResult(id: JsonRpcRequest['id'], result: unknown) {
 	return Response.json({ jsonrpc: '2.0', id, result }, { headers: CORS_HEADERS });
 }
@@ -109,18 +118,9 @@ export const POST: RequestHandler = async ({ request }) => {
 	} catch {
 		return jsonRpcError(null, -32700, 'Parse error');
 	}
-	// null, arrays (batches aren't supported) and primitives are valid JSON but not a request.
-	if (
-		typeof msg !== 'object' ||
-		msg === null ||
-		Array.isArray(msg) ||
-		(msg as { jsonrpc?: unknown }).jsonrpc !== '2.0' ||
-		typeof (msg as { method?: unknown }).method !== 'string'
-	) {
-		return jsonRpcError(null, -32600, 'Invalid Request');
-	}
+	if (!isJsonRpcRequest(msg)) return jsonRpcError(null, -32600, 'Invalid Request');
 
-	const { id, method, params } = msg as JsonRpcRequest;
+	const { id, method, params } = msg;
 	const isNotification = id === undefined;
 
 	switch (method) {
