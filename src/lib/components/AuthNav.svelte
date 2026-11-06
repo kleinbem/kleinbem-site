@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { browser } from "$app/env";
+  import { page } from "$app/state";
 
   type SessionUser = { name: string | null; email: string | null };
 
@@ -33,13 +35,14 @@
     }
   }
 
-  // Preserves the current page as ?redirect= so signing in returns here
-  // instead of always landing on home — same behavior the old login page
-  // had for LoginProviders/EmailPasswordForm's callbackURL handling.
-  const signInHref =
-    typeof location !== "undefined"
-      ? `/auth/login?redirect=${encodeURIComponent(location.pathname + location.search)}`
-      : "/auth/login";
+  // ?redirect= brings the visitor back to this page after sign-in. Derived
+  // because the layout keeps this component across client-side navigation;
+  // prerendering can't read url.search, so it gets the plain link.
+  const signInHref = $derived(
+    browser
+      ? `/auth/login?redirect=${encodeURIComponent(page.url.pathname + page.url.search)}`
+      : "/auth/login",
+  );
 
   const menuClass = "absolute right-0 mt-2 w-48 rounded-xl bg-surface-high p-1.5 shadow-elevation-2";
   const itemClass =

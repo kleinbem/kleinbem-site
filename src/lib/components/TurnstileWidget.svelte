@@ -14,7 +14,13 @@
     if (w.turnstile) return Promise.resolve();
     const existing = document.querySelector<HTMLScriptElement>('script[data-turnstile]');
     if (existing) {
-      return new Promise((resolve) => existing.addEventListener("load", () => resolve()));
+      // Another widget's load is still in flight (a failed one removes its tag).
+      return new Promise((resolve, reject) => {
+        existing.addEventListener("load", () => resolve(), { once: true });
+        existing.addEventListener("error", () => reject(new Error("Failed to load Turnstile")), {
+          once: true,
+        });
+      });
     }
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -23,7 +29,10 @@
       script.defer = true;
       script.dataset.turnstile = "true";
       script.onload = () => resolve();
-      script.onerror = () => reject(new Error("Failed to load Turnstile"));
+      script.onerror = () => {
+        script.remove();
+        reject(new Error("Failed to load Turnstile"));
+      };
       document.head.appendChild(script);
     });
   }
@@ -31,16 +40,18 @@
   onMount(() => {
     let widgetId: string | undefined;
     let cancelled = false;
-    loadScript().then(() => {
-      if (cancelled) return;
-      const turnstile = (window as unknown as { turnstile: any }).turnstile;
-      widgetId = turnstile.render(container, {
-        sitekey: SITE_KEY,
-        callback: onToken,
-        "expired-callback": () => onToken(""),
-        "error-callback": () => onToken(""),
-      });
-    });
+    loadScript()
+      .then(() => {
+        if (cancelled) return;
+        const turnstile = (window as unknown as { turnstile: any }).turnstile;
+        widgetId = turnstile.render(container, {
+          sitekey: SITE_KEY,
+          callback: onToken,
+          "expired-callback": () => onToken(""),
+          "error-callback": () => onToken(""),
+        });
+      })
+      .catch((err) => console.error("Turnstile widget failed to load", err));
     return () => {
       cancelled = true;
       const turnstile = (window as unknown as { turnstile?: any }).turnstile;

@@ -1,10 +1,18 @@
 <script lang="ts">
 	import '../app.css';
+	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { site } from '#lib/data/site.js';
 	import AuthNav from '#lib/components/AuthNav.svelte';
 
 	let { children } = $props();
+
+	// The layout survives client-side navigation, so the mobile menu would stay open.
+	// Link clicks and hashchange close it too: #fragment navigation skips afterNavigate.
+	let menuOpen = $state(false);
+	afterNavigate(() => {
+		menuOpen = false;
+	});
 
 	const nav = [
 		{ href: '/', label: 'About' },
@@ -19,6 +27,8 @@
 	const isActive = (href: string) =>
 		href.includes('#') ? false : href === '/' ? path === '/' : path === href;
 </script>
+
+<svelte:window onhashchange={() => (menuOpen = false)} />
 
 <svelte:head>
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -79,7 +89,7 @@
 
 				<!-- <640px: collapse into a native <details> disclosure — no JS
 				     needed for the toggle itself. -->
-				<details class="relative sm:hidden">
+				<details class="relative sm:hidden" bind:open={menuOpen}>
 					<summary
 						class="grid h-10 w-10 list-none place-items-center rounded-full text-muted transition-colors hover:bg-surface-high hover:text-heading [&::-webkit-details-marker]:hidden"
 						aria-label="Menu"
@@ -98,6 +108,7 @@
 							<a
 								href={item.href}
 								aria-current={isActive(item.href) ? 'page' : undefined}
+								onclick={() => (menuOpen = false)}
 								class="block rounded-lg px-3 py-2 text-sm transition-colors {isActive(item.href)
 									? 'bg-accent-soft font-medium text-accent-soft-fg'
 									: 'text-muted hover:bg-surface hover:text-heading'}"
