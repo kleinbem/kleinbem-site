@@ -103,14 +103,18 @@ export const GET: RequestHandler = async () =>
 export const OPTIONS: RequestHandler = async () => new Response(null, { headers: CORS_HEADERS });
 
 export const POST: RequestHandler = async ({ request }) => {
-	let msg: JsonRpcRequest;
+	let msg: unknown;
 	try {
 		msg = await request.json();
 	} catch {
 		return jsonRpcError(null, -32700, 'Parse error');
 	}
+	// null, arrays (batches aren't supported) and primitives are valid JSON but not a request.
+	if (typeof msg !== 'object' || msg === null || Array.isArray(msg)) {
+		return jsonRpcError(null, -32600, 'Invalid Request');
+	}
 
-	const { id, method, params } = msg;
+	const { id, method, params } = msg as JsonRpcRequest;
 	const isNotification = id === undefined;
 
 	switch (method) {
