@@ -3,17 +3,31 @@ import type { RequestHandler } from './$types';
 
 export const prerender = false;
 
-interface ContactBody {
-	name?: string;
-	email?: string;
-	message?: string;
-	// Hidden honeypot field — real visitors never fill this in.
-	company?: string;
-	turnstileToken?: string;
-}
+// company is a hidden honeypot field: real visitors never fill it in.
+const FIELD_LIMITS = {
+	name: 200,
+	email: 320,
+	message: 10_000,
+	company: 200,
+	turnstileToken: 4096
+} as const;
+type ContactBody = Partial<Record<keyof typeof FIELD_LIMITS, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONTACT_TO = 'martin.kleinberger@kleinbem.dev';
+const UPSTREAM_TIMEOUT_MS = 10_000;
+
+function parseBody(raw: unknown): ContactBody | null {
+	if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) return null;
+	const body: ContactBody = {};
+	for (const [field, limit] of Object.entries(FIELD_LIMITS) as [keyof ContactBody, number][]) {
+		const value = (raw as Record<string, unknown>)[field];
+		if (value === undefined || value === null) continue;
+		if (typeof value !== 'string' || value.length > limit) return null;
+		body[field] = value;
+	}
+	return body;
+}
 
 async function verifyTurnstile(
 	token: string,
@@ -24,7 +38,8 @@ async function verifyTurnstile(
 		const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ secret, response: token, ...(ip ? { remoteip: ip } : {}) })
+			body: JSON.stringify({ secret, response: token, ...(ip ? { remoteip: ip } : {}) }),
+			signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS)
 		});
 		if (!res.ok) return false;
 		const data = (await res.json()) as { success?: boolean };
@@ -36,10 +51,13 @@ async function verifyTurnstile(
 }
 
 export const POST: RequestHandler = async ({ request }) => {
-	let body: ContactBody;
+	let body: ContactBody | null;
 	try {
-		body = await request.json();
+		body = parseBody(await request.json());
 	} catch {
+		body = null;
+	}
+	if (!body) {
 		return Response.json({ error: 'Invalid request body' }, { status: 400 });
 	}
 
@@ -64,20 +82,27 @@ export const POST: RequestHandler = async ({ request }) => {
 		return Response.json({ error: 'Missing or invalid fields' }, { status: 400 });
 	}
 
-	const res = await fetch('https://api.resend.com/emails', {
-		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${env.RESEND_API_KEY}`,
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({
-			from: 'kleinbem.dev contact form <contact@kleinbem.dev>',
-			to: CONTACT_TO,
-			reply_to: email,
-			subject: `Website contact from ${name}`,
-			text: `${message}\n\n— ${name} (${email})`
-		})
-	});
+	let res: Response;
+	try {
+		res = await fetch('https://api.resend.com/emails', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${env.RESEND_API_KEY}`,
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				from: 'kleinbem.dev contact form <contact@kleinbem.dev>',
+				to: CONTACT_TO,
+				reply_to: email,
+				subject: `Website contact from ${name}`,
+				text: `${message}\n\n— ${name} (${email})`
+			}),
+			signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS)
+		});
+	} catch (err) {
+		console.error('Resend request failed', err);
+		return Response.json({ error: 'Failed to send message' }, { status: 502 });
+	}
 
 	if (!res.ok) {
 		console.error('Resend send failed', res.status, await res.text());

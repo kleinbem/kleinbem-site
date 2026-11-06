@@ -23,11 +23,15 @@ function parsePost(slug: string, raw: string): BlogPost {
 	if (typeof data.title !== 'string' || typeof data.description !== 'string' || !data.pubDate) {
 		throw new Error(`blog post "${slug}" is missing required frontmatter (title/description/pubDate)`);
 	}
+	const pubDate = new Date(data.pubDate);
+	if (Number.isNaN(pubDate.valueOf())) {
+		throw new Error(`blog post "${slug}" has an invalid pubDate: ${JSON.stringify(data.pubDate)}`);
+	}
 	return {
 		slug,
 		title: data.title,
 		description: data.description,
-		pubDate: new Date(data.pubDate),
+		pubDate,
 		draft: data.draft === true,
 		html: marked.parse(content, { async: false }) as string
 	};
