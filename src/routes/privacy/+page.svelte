@@ -82,9 +82,9 @@
 	</p>
 	<ul class="mt-3 max-w-2xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed text-fg">
 		<li>
-			A short-lived sign-in cookie, set when you start signing in. It holds only random values
-			that tie the reply from auth.kleinbem.dev to your browser, expires after ten minutes, and
-			is deleted as soon as sign-in finishes.
+			A short-lived sign-in cookie, set when you start signing in. It holds random values that
+			tie the reply from auth.kleinbem.dev to your browser and the page on this site to return
+			you to, expires after ten minutes, and is deleted as soon as sign-in finishes.
 		</li>
 		<li>
 			The session cookie described above, set once you're signed in, valid for up to 30 days,
