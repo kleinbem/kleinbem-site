@@ -8,7 +8,7 @@
 	let { children } = $props();
 
 	// The layout survives client-side navigation, so the mobile menu would stay open.
-	// Link clicks close it too: same-page #fragment links don't fire afterNavigate.
+	// Link clicks and hashchange close it too: #fragment navigation skips afterNavigate.
 	let menuOpen = $state(false);
 	afterNavigate(() => {
 		menuOpen = false;
@@ -27,6 +27,8 @@
 	const isActive = (href: string) =>
 		href.includes('#') ? false : href === '/' ? path === '/' : path === href;
 </script>
+
+<svelte:window onhashchange={() => (menuOpen = false)} />
 
 <svelte:head>
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
