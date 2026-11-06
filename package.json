@@ -1,0 +1,40 @@
+{
+  "name": "personal-site",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.17.0"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource/roboto": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/svelte-form": "^1.33.5",
+    "gray-matter": "^4.0.3",
+    "jose": "^6.2.14",
+    "marked": "^18.1.2",
+    "svelte": "^5.57.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261028.1",
+    "@sveltejs/adapter-cloudflare": "^8.0.2",
+    "@sveltejs/kit": "^3.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@types/node": "^26.6.6",
+    "svelte-check": "^4.7.7",
+    "vite": "^8.3.5",
+    "wrangler": "^4.156.0"
+  },
+  "imports": {
+    "#lib/*": "./src/lib/*"
+  }
+}

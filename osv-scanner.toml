@@ -1,0 +1,7 @@
+# deepmerge 4.3.1 is the last release and every 4.2+ is affected; it reaches us
+# only via @sveltejs/vite-plugin-svelte at build time, merging our own config.
+# Drop once https://github.com/sveltejs/vite-plugin-svelte/pull/1415 ships.
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+ignoreUntil = 2027-02-03T00:00:00Z
+reason = "deepmerge dev dependency via vite-plugin-svelte, no fixed version; https://github.com/TehShrike/deepmerge/issues/285"

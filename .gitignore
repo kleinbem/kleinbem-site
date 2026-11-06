@@ -1,0 +1,30 @@
+# build output
+.svelte-kit/
+# local wrangler pages dev cache
+.wrangler/
+# real Authentik/Resend/Turnstile secrets for local `vite dev` /
+# `wrangler pages dev` — see .dev.vars.example
+.dev.vars
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# Claude Code worktrees
+.claude/worktrees/

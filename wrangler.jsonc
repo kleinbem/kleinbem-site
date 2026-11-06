@@ -1,0 +1,20 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "kleinbem-site",
+	// pages_build_output_dir selects Pages mode (`main` + assets.binding would be
+	// Workers). CI deploys it with `wrangler pages deploy` into the Pages project
+	// from nix/infra/cloudflare-pages.tf.
+	"pages_build_output_dir": ".svelte-kit/cloudflare",
+	"compatibility_date": "2026-09-22",
+	// AsyncLocalStorage polyfill SvelteKit's server runtime needs. If a
+	// deploy throws async_local_storage_unavailable, switch to
+	// "nodejs_compat" instead.
+	"compatibility_flags": ["nodejs_als"],
+	// Non-secret only. With this file present Cloudflare ignores dashboard/Terraform
+	// env vars, so `vars` is the only way non-secret config reaches `env`. CI pushes
+	// the secrets with `wrangler pages secret put` (see ci.yaml for which ones).
+	// client_id isn't secret: it's in the authorize redirect URL anyway.
+	"vars": {
+		"AUTHENTIK_CLIENT_ID": "kleinbem-site"
+	}
+}
