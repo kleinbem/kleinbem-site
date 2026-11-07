@@ -59,17 +59,18 @@
 
 <div class="flex min-h-screen flex-col bg-bg text-fg antialiased">
 	<header class="sticky top-0 z-40 bg-surface shadow-elevation-1">
-		<div class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-			<a href="/" class="flex items-center gap-2 font-medium tracking-tight text-heading">
-				<span
-					class="grid h-8 w-8 place-items-center rounded-lg bg-accent-soft font-mono text-[13px] text-accent-soft-fg"
-					aria-hidden="true"
-				>
-					MK
-				</span>
-				<span class="hidden sm:inline">{site.name}</span>
-			</a>
-			<div class="flex items-center gap-2">
+		<div class="flex w-full items-center justify-between px-6 py-3.5">
+			<div class="flex items-center gap-6">
+				<a href="/" class="flex items-center gap-2 font-medium tracking-tight text-heading">
+					<span
+						class="grid h-8 w-8 place-items-center rounded-lg bg-accent-soft font-mono text-[13px] text-accent-soft-fg"
+						aria-hidden="true"
+					>
+						MK
+					</span>
+					<span class="hidden sm:inline">{site.name}</span>
+				</a>
+
 				<!-- >=640px: full horizontal nav. Below that it doesn't fit and
 				     was overflowing the viewport (real mobile bug, found by
 				     testing at a real narrow width). Active-item pill mirrors
@@ -87,7 +88,9 @@
 						</a>
 					{/each}
 				</nav>
+			</div>
 
+			<div class="flex items-center gap-2">
 				<!-- <640px: collapse into a native <details> disclosure — no JS
 				     needed for the toggle itself. -->
 				<details class="relative sm:hidden" bind:open={menuOpen}>
@@ -120,8 +123,8 @@
 					</div>
 				</details>
 
-				<span class="mx-1 hidden h-4 w-px bg-line sm:block" aria-hidden="true"></span>
 				<AuthNav />
+				<span class="mx-1 hidden h-4 w-px bg-line sm:block" aria-hidden="true"></span>
 				<FontSizeToggle />
 				<ThemeToggle />
 			</div>
