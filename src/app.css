@@ -9,7 +9,7 @@
 @import "@fontsource-variable/jetbrains-mono";
 
 /* Shared fleet theme & styles from @kleinbem/web-config */
-@import "@kleinbem/web-config/theme/light";
+@import "@kleinbem/web-config/theme";
 @import "@kleinbem/web-config/base.css";
 @import "@kleinbem/web-config/badges.css";
 @import "@kleinbem/web-config/prose.css";

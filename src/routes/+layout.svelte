@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import { site } from '#lib/data/site.js';
 	import AuthNav from '#lib/components/AuthNav.svelte';
+	import ThemeToggle from '@kleinbem/web-config/theme/toggle';
 
 	let { children } = $props();
 
@@ -33,7 +34,7 @@
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<meta name="theme-color" content="#ffffff" />
-	<meta name="color-scheme" content="light" />
+	<meta name="color-scheme" content="light dark" />
 
 	<!--
 		Cloudflare Web Analytics (nix/infra/cloudflare-analytics.tf). Pages doesn't
@@ -120,6 +121,7 @@
 
 				<span class="mx-1 hidden h-4 w-px bg-line sm:block" aria-hidden="true"></span>
 				<AuthNav />
+				<ThemeToggle />
 			</div>
 		</div>
 	</header>
