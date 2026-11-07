@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import { site } from '#lib/data/site.js';
 	import AuthNav from '#lib/components/AuthNav.svelte';
+	import FontSizeToggle from '@kleinbem/web-config/font-size/toggle';
 	import ThemeToggle from '@kleinbem/web-config/theme/toggle';
 
 	let { children } = $props();
@@ -121,6 +122,7 @@
 
 				<span class="mx-1 hidden h-4 w-px bg-line sm:block" aria-hidden="true"></span>
 				<AuthNav />
+				<FontSizeToggle />
 				<ThemeToggle />
 			</div>
 		</div>
