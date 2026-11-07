@@ -15,6 +15,7 @@
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource/roboto": "^5.3.0",
+    "@kleinbem/web-config": "github:kleinbem/web-config#main",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/svelte-form": "^1.33.5",
     "gray-matter": "^4.0.3",
