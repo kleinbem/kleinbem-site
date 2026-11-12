@@ -1,11 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#2563eb" />
-  <path
-    d="M11 6v20M11 17.5l7.5-7.5M11 16.5l8.5 9.5"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="3"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <!-- Background Glow -->
+    <radialGradient id="mk-glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.25" />
+      <stop offset="60%" stop-color="#0f172a" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#0b0f19" stop-opacity="0" />
+    </radialGradient>
+    
+    <!-- Linear Gradients for 3D/Tech Depth -->
+    <linearGradient id="cyan-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <linearGradient id="indigo-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+
+    <linearGradient id="amber-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <linearGradient id="steel-bracket" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas Surface (Matches Cadre/Revue deep slate) -->
+  <rect width="256" height="256" rx="56" fill="#0b0f19" />
+  
+  <!-- Subtle Ambient Glow -->
+  <rect width="256" height="256" rx="56" fill="url(#mk-glow)" />
+
+  <!-- Corner Brackets (Architectural Frame) -->
+  <path d="M 44 74 L 44 54 A 8 8 0 0 1 52 46 L 72 46" fill="none" stroke="url(#steel-bracket)" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M 184 46 L 204 46 A 8 8 0 0 1 212 54 L 212 74" fill="none" stroke="url(#steel-bracket)" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M 212 182 L 212 202 A 8 8 0 0 1 204 210 L 184 210" fill="none" stroke="url(#steel-bracket)" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M 72 210 L 52 210 A 8 8 0 0 1 44 202 L 44 182" fill="none" stroke="url(#steel-bracket)" stroke-width="4.5" stroke-linecap="round" />
+
+  <!-- The MK Monogram Geometry -->
+  <!-- Left stem of M -->
+  <path d="M 64 186 L 64 70" fill="none" stroke="url(#cyan-blue)" stroke-width="16" stroke-linecap="round" />
+
+  <!-- Diagonal chevron of M (down to peak, up to shared spine) -->
+  <path d="M 64 70 L 108 132 L 148 70" fill="none" stroke="url(#cyan-blue)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Shared vertical spine (Right leg of M / Stem of K) -->
+  <path d="M 148 70 L 148 186" fill="none" stroke="url(#indigo-purple)" stroke-width="16" stroke-linecap="round" />
+
+  <!-- K upper arm (with amber spark accent node) -->
+  <path d="M 148 128 L 196 74" fill="none" stroke="url(#amber-accent)" stroke-width="15" stroke-linecap="round" />
+
+  <!-- K lower leg -->
+  <path d="M 148 128 L 198 186" fill="none" stroke="url(#cyan-blue)" stroke-width="15" stroke-linecap="round" />
+
+  <!-- Focal Intelligence Spark at junction -->
+  <circle cx="148" cy="128" r="5" fill="#ffffff" />
+  <circle cx="196" cy="74" r="4.5" fill="#fef08a" />
 </svg>
