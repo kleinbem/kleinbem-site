@@ -9,10 +9,14 @@
 @import "@fontsource-variable/jetbrains-mono";
 
 /* Shared fleet theme & styles from @kleinbem/web-config */
+@source "../node_modules/@kleinbem/web-config";
 @import "@kleinbem/web-config/theme";
 @import "@kleinbem/web-config/base.css";
 @import "@kleinbem/web-config/badges.css";
 @import "@kleinbem/web-config/prose.css";
+
+/* dark: follows the active theme (data-theme), not only the OS setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
 
 /* Faint tint behind the hero. */
 .hero-glow {
