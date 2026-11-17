@@ -1,5 +1,5 @@
 {
-  "extends": "$app/tsconfig",
+  "extends": ["$app/tsconfig", "@kleinbem/web-config/tsconfig/svelte"],
   "exclude": [
     "node_modules/**",
     "src/service-worker.js",
