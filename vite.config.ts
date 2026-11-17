@@ -1,12 +1,6 @@
 import adapter from '@sveltejs/adapter-cloudflare';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import tailwindcss from '@tailwindcss/vite';
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
+import { defineWebConfig } from '@kleinbem/web-config/vite';
 
-export default defineConfig({
-	plugins: [
-		tailwindcss(),
-		sveltekit({ preprocess: vitePreprocess(), adapter: adapter() })
-	]
+export default defineWebConfig({
+	adapter: adapter()
 });
