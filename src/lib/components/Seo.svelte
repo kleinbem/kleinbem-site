@@ -38,9 +38,13 @@
 	// Only real external profile links qualify as schema.org sameAs identity
 	// links — exclude internal pages (Resume/CV → /experience) and any
 	// still-placeholder URLs (e.g. LinkedIn/Mastodon before real handles are set).
-	const sameAs = links
-		.filter((l) => l.url.startsWith('http') && !l.url.includes('your-handle'))
-		.map((l) => l.url);
+	// Gravatar is included as hidden identity metadata without adding a visible card.
+	const sameAs = [
+		...links
+			.filter((l) => l.url.startsWith('http') && !l.url.includes('your-handle'))
+			.map((l) => l.url),
+		'https://gravatar.com/kleinbem'
+	];
 
 	const personJsonLd = {
 		'@context': 'https://schema.org',
@@ -81,6 +85,7 @@
 
 <svelte:head>
 	<link rel="canonical" href={canonical} />
+	<link rel="me" href="https://gravatar.com/kleinbem" />
 	{#if noindex}
 		<meta name="robots" content="noindex, nofollow" />
 	{/if}
