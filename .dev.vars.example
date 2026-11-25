@@ -1,0 +1,13 @@
+# Copy to .dev.vars (gitignored) for local `vite dev` / `wrangler pages dev`;
+# adapter-cloudflare's platform proxy exposes it through `cloudflare:workers`' env.
+#
+# AUTH_SITE_ORIGIN: only for testing the real OIDC round trip locally, which also
+# needs http://localhost:5173/auth/callback registered as a redirect_uri on the
+# Authentik provider. Unset, it defaults to https://kleinbem.dev.
+AUTHENTIK_CLIENT_ID=
+AUTHENTIK_CLIENT_SECRET=
+AUTH_SESSION_SECRET=
+AUTH_SITE_ORIGIN=http://localhost:5173
+
+RESEND_API_KEY=
+TURNSTILE_SECRET_KEY=
