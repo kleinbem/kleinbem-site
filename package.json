@@ -10,31 +10,31 @@
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+    "check": "web-config check && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource/roboto": "^5.3.0",
-    "@kleinbem/web-config": "github:kleinbem/web-config#main",
-    "@tailwindcss/vite": "^4.3.3",
+    "@kleinbem/web-config": "github:kleinbem/web-config#v0.2.1",
+    "@tailwindcss/vite": "^4.3.5",
     "@tanstack/svelte-form": "^1.33.5",
     "gray-matter": "^4.0.3",
-    "jose": "^6.2.14",
-    "marked": "^18.1.2",
+    "jose": "^6.2.17",
+    "marked": "^18.2.1",
     "svelte": "^5.57.3",
     "tailwindcss": "^4.3.3",
     "typescript": "npm:@typescript/typescript6@^6.0.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261030.1",
-    "@sveltejs/adapter-cloudflare": "^8.0.2",
-    "@sveltejs/kit": "^3.1.1",
+    "@cloudflare/workers-types": "^5.20261110.1",
+    "@sveltejs/adapter-cloudflare": "^8.0.3",
+    "@sveltejs/kit": "^3.3.1",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@types/node": "^26.6.6",
     "@typescript/native": "npm:typescript@^7.0.2",
-    "svelte-check": "^4.7.7",
-    "vite": "^8.3.5",
-    "wrangler": "^4.156.0"
+    "svelte-check": "^4.7.8",
+    "vite": "^8.3.8",
+    "wrangler": "^4.164.0"
   },
   "imports": {
     "#lib/*": "./src/lib/*"
